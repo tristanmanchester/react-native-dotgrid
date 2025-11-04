@@ -46,6 +46,7 @@
     "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run build:types",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "test": "jest",
+    "dev:pack": "./scripts/pack-and-run-example.sh",
     "prepare": "npm run build"
   },
   "peerDependencies": {
