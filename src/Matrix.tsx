@@ -97,6 +97,7 @@ export const Matrix: React.FC<MatrixProps> = ({
   }, [pattern, frames, rows, cols, mode, levels, fallback]);
 
   const frameCount = preparedFrames.length;
+  const isStatic = mode === 'default' && frameCount <= 1;
 
   // Shared values to drive UI-thread animations
   const framesSV = useSharedValue(preparedFrames);
@@ -190,20 +191,26 @@ export const Matrix: React.FC<MatrixProps> = ({
         {dots.map((d) => (
           <Circle key={`off-${d.key}`} cx={d.cx} cy={d.cy} r={d.r} fill={palette.off} />
         ))}
-        {dots.map((d) => (
-          <Dot
-            key={`on-${d.key}`}
-            cx={d.cx}
-            cy={d.cy}
-            r={d.r}
-            row={d.row}
-            col={d.col}
-            framesSV={framesSV}
-            frameIndex={frameIndex}
-            brightnessSV={brightnessSV}
-            fill={palette.on}
-          />
-        ))}
+        {isStatic
+          ? dots.map((d) => {
+              const value = preparedFrames[0]?.[d.row]?.[d.col] ?? 0;
+              const op = clamp(value * brightness);
+              return <Circle key={`on-${d.key}`} cx={d.cx} cy={d.cy} r={d.r} fill={palette.on} opacity={op} />;
+            })
+          : dots.map((d) => (
+              <Dot
+                key={`on-${d.key}`}
+                cx={d.cx}
+                cy={d.cy}
+                r={d.r}
+                row={d.row}
+                col={d.col}
+                framesSV={framesSV}
+                frameIndex={frameIndex}
+                brightnessSV={brightnessSV}
+                fill={palette.on}
+              />
+            ))}
       </Svg>
     </View>
   );

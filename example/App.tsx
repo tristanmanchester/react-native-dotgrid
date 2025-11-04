@@ -8,10 +8,11 @@ import {
   pulse,
   snake,
   chevronLeft,
-  chevronRight
+  chevronRight,
+  ripple
 } from 'react-native-dotgrid';
 
-type Demo = 'digit' | 'wave' | 'loader' | 'vu' | 'pulse' | 'snake' | 'chevrons' | 'showcase3x3';
+type Demo = 'digit' | 'wave' | 'loader' | 'vu' | 'pulse' | 'snake' | 'chevrons' | 'ripple' | 'showcase3x3';
 
 export default function App() {
   const [demo, setDemo] = useState<Demo>('digit');
@@ -26,6 +27,7 @@ export default function App() {
   const waveFrames = useMemo(() => generateWaveFrames(7, 7), []);
   const loaderFrames = useMemo(() => generateLoaderFrames(7, 12), []);
   const pulseFrames = useMemo(() => pulse(7, 12, 24), []);
+  const rippleFrames = useMemo(() => ripple(7, 7, { length: 28, wavelength: 3.5, damping: 0.06 }), []);
   const palette = useMemo(() => ({ on: '#fff', off: '#222', background: 'transparent' }), []);
 
   // Gradient helper: spreads intensity around a set of centers
@@ -52,7 +54,7 @@ export default function App() {
         <Text style={{ color: '#fff', fontWeight: '600', marginBottom: 8 }}>react-native-dotgrid</Text>
       </View>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, padding: 12, justifyContent: 'center' }}>
-        {(['digit', 'wave', 'loader', 'pulse', 'vu', 'snake', 'chevrons', 'showcase3x3'] as Demo[]).map((key) => (
+        {(['digit', 'wave', 'loader', 'pulse', 'vu', 'snake', 'chevrons', 'ripple', 'showcase3x3'] as Demo[]).map((key) => (
           <Pressable key={key} onPress={() => setDemo(key)} style={{ paddingVertical: 8, paddingHorizontal: 10, borderWidth: 1, borderColor: demo === key ? '#fff' : '#555', borderRadius: 6, marginHorizontal: 4 }}>
             <Text style={{ color: demo === key ? '#fff' : '#bbb' }}>{key}</Text>
           </Pressable>
@@ -71,10 +73,11 @@ export default function App() {
             <Matrix rows={7} cols={7} pattern={chevronRight(7, 7)} ariaLabel="Chevron right" palette={palette} />
           </View>
         )}
+        {demo === 'ripple' && <Matrix rows={7} cols={7} frames={rippleFrames} fps={24} loop ariaLabel="Ripple" palette={palette} />}
         {demo === 'showcase3x3' && (
-          <View style={{ gap: 12 }}>
+          <View style={{ gap: 6 }}>
             {[0, 1, 2].map((row) => (
-              <View key={row} style={{ flexDirection: 'row', gap: 12, alignItems: 'center', justifyContent: 'center' }}>
+              <View key={row} style={{ flexDirection: 'row', gap: 6, alignItems: 'center', justifyContent: 'center' }}>
                 {[0, 1, 2].map((col) => {
                   const key = `${row}-${col}`;
                   // Pick a pattern per cell
@@ -82,11 +85,11 @@ export default function App() {
                   const common = { rows: 7, cols: 7, palette } as const;
                   if (cell === 0) return <Matrix key={key} {...common} pattern={softPattern(7, 7, [[2, 2], [4, 4]], 1.8)} ariaLabel="soft dots" />;
                   if (cell === 1) return <Matrix key={key} {...common} frames={generateWaveFrames(7, 7)} fps={14} loop ariaLabel="wave" />;
-                  if (cell === 2) return <Matrix key={key} {...common} pattern={softPattern(7, 7, [[0, 6]], 1.6)} ariaLabel="corner" />;
+                  if (cell === 2) return <Matrix key={key} {...common} pattern={softPattern(7, 7, [[0, 6]], 2.2)} ariaLabel="corner" />;
                   if (cell === 3) return <Matrix key={key} {...common} pattern={softPattern(7, 7, [[3, 0]], 1.6)} ariaLabel="edge" />;
                   if (cell === 4) return <Matrix key={key} {...common} frames={pulse(7, 7, 18)} fps={16} loop ariaLabel="pulse" />;
-                  if (cell === 5) return <Matrix key={key} {...common} pattern={softPattern(7, 7, [[3, 1], [3, 5]], 1.2)} ariaLabel="dots" />;
-                  if (cell === 6) return <Matrix key={key} {...common} frames={snake(7, 7)} fps={24} loop ariaLabel="snake" />;
+                  if (cell === 5) return <Matrix key={key} {...common} frames={ripple(7, 7, { length: 21, wavelength: 3.5 })} fps={18} loop ariaLabel="ripple" />;
+                  if (cell === 6) return <Matrix key={key} {...common} frames={snake(7, 7, 4)} fps={24} loop ariaLabel="snake" />;
                   if (cell === 7) return <Matrix key={key} {...common} frames={generateLoaderFrames(7, 7)} fps={18} loop ariaLabel="loader" />;
                   return <Matrix key={key} {...common} pattern={softPattern(7, 7, [[5, 5], [1, 3], [3, 1]], 2)} ariaLabel="multi" />;
                 })}

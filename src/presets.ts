@@ -212,3 +212,38 @@ export function chevronRight(rows = 7, cols = 7): Frame {
 
 export const pulse = (rows: number, cols: number, count?: number) => generatePulseFrames(rows, cols, count);
 export const snake = (rows: number, cols: number, tail?: number) => generateSnakeFrames(rows, cols, tail);
+
+// Ripple / raindrop effect: concentric waves radiating from center
+export function generateRippleFrames(
+  rows: number,
+  cols: number,
+  options?: { length?: number; speed?: number; wavelength?: number; damping?: number }
+): Frame[] {
+  const length = options?.length ?? Math.max(rows, cols) * 2;
+  const speed = options?.speed ?? 1; // frames per wave advance
+  const wavelength = options?.wavelength ?? 4; // controls spacing of rings
+  const damping = options?.damping ?? 0.04; // reduces amplitude with distance
+  const cx = (rows - 1) / 2;
+  const cy = (cols - 1) / 2;
+  const frames: Frame[] = [];
+  for (let t = 0; t < length; t += 1) {
+    const f: Frame = Array.from({ length: rows }, () => Array(cols).fill(0));
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const dx = r - cx;
+        const dy = c - cy;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const phase = (dist - t / speed) / wavelength;
+        const base = 0.5 + 0.5 * Math.cos(2 * Math.PI * phase);
+        const atten = Math.exp(-damping * dist * dist);
+        const v = clamp(base * atten);
+        f[r][c] = v;
+      }
+    }
+    frames.push(normaliseFrame(f, rows, cols));
+  }
+  return frames;
+}
+
+export const ripple = (rows: number, cols: number, options?: { length?: number; speed?: number; wavelength?: number; damping?: number }) =>
+  generateRippleFrames(rows, cols, options);

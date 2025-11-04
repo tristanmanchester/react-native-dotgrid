@@ -6,7 +6,8 @@ import {
   generatePulseFrames,
   generateSnakeFrames,
   chevronLeft,
-  chevronRight
+  chevronRight,
+  generateRippleFrames
 } from '../presets';
 
 describe('presets', () => {
@@ -99,5 +100,16 @@ describe('presets', () => {
     expect(l[0].length).toBe(7);
     expect(r.length).toBe(7);
     expect(r[0].length).toBe(7);
+  });
+
+  test('ripple frames have values in range', () => {
+    const frames = generateRippleFrames(7, 7, { length: 5 });
+    expect(frames.length).toBe(5);
+    for (const f of frames) {
+      for (const v of f.flat()) {
+        expect(v).toBeGreaterThanOrEqual(0);
+        expect(v).toBeLessThanOrEqual(1);
+      }
+    }
   });
 });
