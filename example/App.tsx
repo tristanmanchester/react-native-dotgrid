@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { SafeAreaView, View, Text, Pressable } from 'react-native';
-import { Matrix, digits, generateWaveFrames, generateLoaderFrames, pulse } from '../src';
+import { Matrix, digits, generateWaveFrames, generateLoaderFrames, pulse } from 'react-native-dotgrid';
 
 type Demo = 'digit' | 'wave' | 'loader' | 'vu' | 'pulse';
 
