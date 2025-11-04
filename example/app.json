@@ -3,13 +3,7 @@
     "name": "Dotgrid Example",
     "slug": "dotgrid-example",
     "version": "1.0.0",
-    "sdkVersion": "52.0.0",
-    "platforms": ["ios", "android"],
     "orientation": "portrait",
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
     "assetBundlePatterns": ["**/*"]
   }
 }
-
