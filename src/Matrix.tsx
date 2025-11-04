@@ -1,6 +1,5 @@
 import React, { useMemo, useEffect } from 'react';
 import { View, AccessibilityInfo } from 'react-native';
-import Svg, { Circle } from 'react-native-svg';
 import Animated, {
   Easing,
   useAnimatedProps,
@@ -11,6 +10,7 @@ import Animated, {
   withTiming,
   runOnJS
 } from 'react-native-reanimated';
+import Svg, { Circle } from 'react-native-svg';
 
 import {
   DEFAULT_BRIGHTNESS,
@@ -165,7 +165,7 @@ export const Matrix: React.FC<MatrixProps> = ({
       accessible
       accessibilityRole="image"
       accessibilityLabel={label}
-      style={style}
+      style={[{ backgroundColor: palette.background }, style]}
       {...rest}
     >
       <Svg width={width} height={height}>

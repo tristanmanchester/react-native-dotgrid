@@ -1,5 +1,5 @@
-import { clamp, createEmptyFrame, normaliseFrame } from './utils';
 import type { Frame } from './types';
+import { clamp, createEmptyFrame, normaliseFrame } from './utils';
 
 export const empty = (rows: number, cols: number): Frame => createEmptyFrame(rows, cols, 0);
 
