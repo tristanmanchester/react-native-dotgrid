@@ -1,4 +1,13 @@
-import { digits, empty, generateLoaderFrames, generateWaveFrames } from '../presets';
+import {
+  digits,
+  empty,
+  generateLoaderFrames,
+  generateWaveFrames,
+  generatePulseFrames,
+  generateSnakeFrames,
+  chevronLeft,
+  chevronRight
+} from '../presets';
 
 describe('presets', () => {
   test('digits are 7x5 frames', () => {
@@ -40,5 +49,47 @@ describe('presets', () => {
     // Perimeter = 6 + 4 + 5 + 3 = 18
     expect(frames.length).toBe(18);
   });
-});
 
+  test('pulse frames keep values within range', () => {
+    const frames = generatePulseFrames(3, 3, 8);
+    expect(frames.length).toBe(8);
+    for (const f of frames) {
+      for (const v of f.flat()) {
+        expect(v).toBeGreaterThanOrEqual(0);
+        expect(v).toBeLessThanOrEqual(1);
+      }
+    }
+  });
+
+  test('snake frames visit each cell once', () => {
+    const rows = 3;
+    const cols = 4;
+    const frames = generateSnakeFrames(rows, cols);
+    expect(frames.length).toBe(rows * cols);
+    const seen = new Set<string>();
+    for (const f of frames) {
+      let count = 0;
+      let pos = '';
+      for (let r = 0; r < rows; r += 1) {
+        for (let c = 0; c < cols; c += 1) {
+          if (f[r][c] > 0) {
+            count += 1;
+            pos = `${r}-${c}`;
+          }
+        }
+      }
+      expect(count).toBe(1);
+      seen.add(pos);
+    }
+    expect(seen.size).toBe(rows * cols);
+  });
+
+  test('chevrons shape', () => {
+    const l = chevronLeft(7, 7);
+    const r = chevronRight(7, 7);
+    expect(l.length).toBe(7);
+    expect(l[0].length).toBe(7);
+    expect(r.length).toBe(7);
+    expect(r[0].length).toBe(7);
+  });
+});

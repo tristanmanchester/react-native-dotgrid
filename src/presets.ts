@@ -1,4 +1,4 @@
-import { createEmptyFrame, normaliseFrame } from './utils';
+import { clamp, createEmptyFrame, normaliseFrame } from './utils';
 import type { Frame } from './types';
 
 export const empty = (rows: number, cols: number): Frame => createEmptyFrame(rows, cols, 0);
@@ -147,3 +147,60 @@ export function generateLoaderFrames(rows: number, cols: number): Frame[] {
 export const wave = (rows: number, cols: number) => generateWaveFrames(rows, cols);
 export const loader = (rows: number, cols: number) => generateLoaderFrames(rows, cols);
 
+// Pulse: global brightness pulse in place (no motion), from 0.2→1.0→0.2
+export function generatePulseFrames(rows: number, cols: number, count = 16): Frame[] {
+  const sequence: number[] = [];
+  for (let i = 0; i < count; i += 1) {
+    const t = (i / (count - 1)) * Math.PI; // 0..pi
+    const b = 0.2 + 0.8 * Math.sin(t);
+    sequence.push(clamp(b));
+  }
+  return sequence.map((b) => {
+    const f = createEmptyFrame(rows, cols, b);
+    return normaliseFrame(f, rows, cols);
+  });
+}
+
+// Snake: single dot traverses the grid row by row (boustrophedon)
+export function generateSnakeFrames(rows: number, cols: number): Frame[] {
+  const frames: Frame[] = [];
+  for (let r = 0; r < rows; r += 1) {
+    const range = r % 2 === 0 ? [...Array(cols).keys()] : [...Array(cols).keys()].reverse();
+    for (const c of range) {
+      const f = createEmptyFrame(rows, cols, 0);
+      f[r][c] = 1;
+      frames.push(normaliseFrame(f, rows, cols));
+    }
+  }
+  return frames;
+}
+
+// Chevrons: static left/right pointing chevrons for indicators
+export function chevronLeft(rows = 7, cols = 7): Frame {
+  const mid = Math.floor(rows / 2);
+  const f = createEmptyFrame(rows, cols, 0);
+  for (let i = 0; i < mid; i += 1) {
+    const r1 = mid - i;
+    const r2 = mid + i;
+    const c = i;
+    if (r1 >= 0 && r1 < rows) f[r1][c] = 1;
+    if (r2 >= 0 && r2 < rows) f[r2][c] = 1;
+  }
+  return normaliseFrame(f, rows, cols);
+}
+
+export function chevronRight(rows = 7, cols = 7): Frame {
+  const mid = Math.floor(rows / 2);
+  const f = createEmptyFrame(rows, cols, 0);
+  for (let i = 0; i < mid; i += 1) {
+    const r1 = mid - i;
+    const r2 = mid + i;
+    const c = cols - 1 - i;
+    if (r1 >= 0 && r1 < rows) f[r1][c] = 1;
+    if (r2 >= 0 && r2 < rows) f[r2][c] = 1;
+  }
+  return normaliseFrame(f, rows, cols);
+}
+
+export const pulse = (rows: number, cols: number, count?: number) => generatePulseFrames(rows, cols, count);
+export const snake = (rows: number, cols: number) => generateSnakeFrames(rows, cols);

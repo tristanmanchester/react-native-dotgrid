@@ -55,6 +55,9 @@ export default function Demo() {
 - `digits` – 7x5 numerals 0-9
 - `generateWaveFrames(rows, cols, opts)` – sine wave animation
 - `generateLoaderFrames(rows, cols)` – perimeter spinner
+- `generatePulseFrames(rows, cols, count?)` – global brightness pulse
+- `generateSnakeFrames(rows, cols)` – single dot traverses grid
+- `chevronLeft(rows?, cols?)`, `chevronRight(rows?, cols?)` – directional static frames
 - `empty(rows, cols)` – blank frame
 
 ## Expo Example
@@ -70,4 +73,3 @@ See `example/` for a minimal Expo app using the component. Make sure the example
 ## License
 
 MIT
-
