@@ -73,6 +73,10 @@ export interface MatrixProps extends ViewProps {
    */
   accessibilityLabel?: string;
   /**
+   * Alias for accessibilityLabel for parity with web docs.
+   */
+  ariaLabel?: string;
+  /**
    * Additional label describing the dot-grid preset.
    */
   presetLabel?: string;

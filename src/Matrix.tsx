@@ -49,6 +49,7 @@ export const Matrix: React.FC<MatrixProps> = ({
   levels,
   onFrame,
   accessibilityLabel,
+  ariaLabel,
   presetLabel,
   paused,
   style,
@@ -147,12 +148,17 @@ export const Matrix: React.FC<MatrixProps> = ({
       return { opacity: clamp(value * b) } as any;
     }, []);
 
-  const label = accessibilityLabel || presetLabel || 'Dot matrix display';
+  const label = ariaLabel || accessibilityLabel || presetLabel || 'Dot matrix display';
 
   useEffect(() => {
     // Announce for screen readers on initial mount
     AccessibilityInfo.announceForAccessibility?.(label);
   }, [label]);
+
+  useEffect(() => {
+    if (onFrame) onFrame(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <View
@@ -186,4 +192,3 @@ export const Matrix: React.FC<MatrixProps> = ({
 };
 
 export default Matrix;
-
