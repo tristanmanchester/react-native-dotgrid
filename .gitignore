@@ -1,0 +1,15 @@
+# Dependencies
+node_modules
+
+# Build outputs
+dist
+
+# Logs
+*.log
+
+# Expo
+.expo
+.expo-shared
+
+# OS
+.DS_Store

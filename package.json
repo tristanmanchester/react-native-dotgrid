@@ -1,0 +1,75 @@
+{
+  "name": "react-native-dotgrid",
+  "version": "0.1.0",
+  "description": "Animated dot-matrix display component for React Native using SVG and Reanimated.",
+  "keywords": [
+    "react-native",
+    "svg",
+    "reanimated",
+    "dot-matrix",
+    "expo"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/example/react-native-dotgrid"
+  },
+  "bugs": {
+    "url": "https://github.com/example/react-native-dotgrid/issues"
+  },
+  "homepage": "https://github.com/example/react-native-dotgrid#readme",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "react-native": "dist/esm/index.js",
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "react-native": "./dist/esm/index.js"
+    }
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "typecheck": "tsc --noEmit",
+    "build:cjs": "tsc -p tsconfig.build.cjs.json",
+    "build:esm": "tsc -p tsconfig.build.esm.json",
+    "build:types": "tsc -p tsconfig.build.types.json",
+    "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run build:types",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "test": "jest",
+    "prepare": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-native": ">=0.70.0",
+    "react-native-svg": ">=14.0.0",
+    "react-native-reanimated": ">=3.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.0",
+    "@babel/preset-env": "^7.25.0",
+    "@babel/preset-typescript": "^7.25.0",
+    "@react-native-community/eslint-config": "^4.0.0",
+    "@testing-library/jest-native": "^5.0.0",
+    "@types/jest": "^29.5.5",
+    "@types/react": "^18.3.3",
+    "@types/react-native": "^0.73.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "jest": "^29.7.0",
+    "rimraf": "^5.0.0",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}
