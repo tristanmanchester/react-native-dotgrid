@@ -140,12 +140,19 @@ export const Matrix: React.FC<MatrixProps> = ({
 
   const getAnimatedProps = (row: number, col: number) =>
     useAnimatedProps(() => {
-      const idx = frameIndex.value;
-      const framesArr = framesSV.value;
-      const b = brightnessSV.value;
-      const frame = framesArr[Math.min(idx, framesArr.length - 1)] || framesArr[0];
-      const value = frame?.[row]?.[col] ?? 0;
-      return { opacity: clamp(value * b) } as any;
+      'worklet';
+      try {
+        const idx = frameIndex.value;
+        const framesArr = framesSV.value;
+        const b = brightnessSV.value;
+        const frame = framesArr[Math.min(idx, framesArr.length - 1)] || framesArr[0];
+        const value = (frame && frame[row] && frame[row][col]) ? frame[row][col] : 0;
+        const op = value * b;
+        const clamped = op < 0 ? 0 : op > 1 ? 1 : op;
+        return { opacity: clamped } as any;
+      } catch (e) {
+        return { opacity: 0 } as any;
+      }
     }, []);
 
   const label = ariaLabel || accessibilityLabel || presetLabel || 'Dot matrix display';

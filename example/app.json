@@ -4,6 +4,11 @@
     "slug": "dotgrid-example",
     "version": "1.0.0",
     "orientation": "portrait",
-    "assetBundlePatterns": ["**/*"]
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.tmanchester.dotgrid-example"
+    }
   }
 }
