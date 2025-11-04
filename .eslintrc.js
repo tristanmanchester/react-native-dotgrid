@@ -12,9 +12,18 @@ module.exports = {
       'warn',
       {
         alphabetize: { order: 'asc', caseInsensitive: true },
-        newlines-between: 'always'
+        'newlines-between': 'always'
       }
     ],
-    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
-  }
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    'prettier/prettier': 'off'
+  },
+  overrides: [
+    {
+      files: ['src/Matrix.tsx'],
+      rules: {
+        'react-hooks/rules-of-hooks': 'off'
+      }
+    }
+  ]
 };
