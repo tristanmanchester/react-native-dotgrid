@@ -27,7 +27,7 @@ export default function App() {
   const waveFrames = useMemo(() => generateWaveFrames(7, 7), []);
   const loaderFrames = useMemo(() => generateLoaderFrames(7, 12), []);
   const pulseFrames = useMemo(() => pulse(7, 12, 24), []);
-  const rippleFrames = useMemo(() => ripple(7, 7, { length: 28, wavelength: 3.5, damping: 0.06 }), []);
+  const rippleFrames = useMemo(() => ripple(7, 7, { length: 36, wavelength: 3.5, damping: 0.06, speed: 2 }), []);
   const palette = useMemo(() => ({ on: '#fff', off: '#222', background: 'transparent' }), []);
 
   // Gradient helper: spreads intensity around a set of centers
@@ -73,7 +73,7 @@ export default function App() {
             <Matrix rows={7} cols={7} pattern={chevronRight(7, 7)} ariaLabel="Chevron right" palette={palette} />
           </View>
         )}
-        {demo === 'ripple' && <Matrix rows={7} cols={7} frames={rippleFrames} fps={24} loop ariaLabel="Ripple" palette={palette} />}
+        {demo === 'ripple' && <Matrix rows={7} cols={7} frames={rippleFrames} fps={12} loop ariaLabel="Ripple" palette={palette} />}
         {demo === 'showcase3x3' && (
           <View style={{ gap: 6 }}>
             {[0, 1, 2].map((row) => (
@@ -88,7 +88,7 @@ export default function App() {
                   if (cell === 2) return <Matrix key={key} {...common} pattern={softPattern(7, 7, [[0, 6]], 2.2)} ariaLabel="corner" />;
                   if (cell === 3) return <Matrix key={key} {...common} pattern={softPattern(7, 7, [[3, 0]], 1.6)} ariaLabel="edge" />;
                   if (cell === 4) return <Matrix key={key} {...common} frames={pulse(7, 7, 18)} fps={16} loop ariaLabel="pulse" />;
-                  if (cell === 5) return <Matrix key={key} {...common} frames={ripple(7, 7, { length: 21, wavelength: 3.5 })} fps={18} loop ariaLabel="ripple" />;
+                  if (cell === 5) return <Matrix key={key} {...common} frames={ripple(7, 7, { length: 28, wavelength: 3.5, speed: 2 })} fps={10} loop ariaLabel="ripple" />;
                   if (cell === 6) return <Matrix key={key} {...common} frames={snake(7, 7, 4)} fps={24} loop ariaLabel="snake" />;
                   if (cell === 7) return <Matrix key={key} {...common} frames={generateLoaderFrames(7, 7)} fps={18} loop ariaLabel="loader" />;
                   return <Matrix key={key} {...common} pattern={softPattern(7, 7, [[5, 5], [1, 3], [3, 1]], 2)} ariaLabel="multi" />;
