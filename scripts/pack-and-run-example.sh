@@ -18,6 +18,5 @@ cd example
 npm install
 npm install "../$TARBALL"
 
-echo "Starting Expo Go (tunnel + clear cache)..."
-exec npx expo go --tunnel --clear
-
+echo "Starting Expo (Expo Go, tunnel + clear cache)..."
+exec npx expo start --tunnel -c
