@@ -10,7 +10,9 @@ Animated dot-matrix display for React Native using `react-native-svg` and Reanim
 npm install react-native-dotgrid react-native-svg react-native-reanimated
 ```
 
-- Configure Reanimated: add `react-native-reanimated/plugin` as the last plugin in your Babel config.
+- Configure Reanimated:
+  - Add `react-native-reanimated/plugin` as the last plugin in your Babel config.
+  - For Expo, see `example/babel.config.js` for a working setup.
 
 ## Quick Start
 
@@ -36,19 +38,39 @@ export default function Demo() {
 <Matrix rows={7} cols={12} mode="vu" levels={[0.1, 0.6, 0.9, 0.2, 0.5, 0.7, 0.3, 0.8, 0.4, 0.9, 0.2, 0.1]} />
 ```
 
-## Props
+## API
 
-- `rows`, `cols` – grid dimensions
-- `pattern` – single frame to display
-- `frames` – array of frames for animation
-- `fps` – frames per second (default 12)
-- `autoplay`, `loop`, `paused`
-- `palette` – `{ on, off }` colors
-- `size`, `gap`
-- `brightness` – 0..1 multiplier
-- `mode` – `default` | `vu`
-- `levels` – numbers 0..1 per column in `vu` mode
-- `onFrame` – callback on frame index change
+Matrix props (high‑level):
+
+- `rows`, `cols` number – grid dimensions (required)
+- `pattern` Frame – single frame to display
+- `frames` Frame[] – animation frames
+- `fps` number – frames per second (default 12)
+- `autoplay` boolean – start animation on mount (default true)
+- `loop` boolean – repeat animation when it reaches the end (default true)
+- `paused` boolean – pause animation without losing state
+- `size` number – dot diameter (default 12)
+- `gap` number – spacing between dots (default 2)
+- `palette` { on, off, background? } – colors
+- `brightness` number 0..1 – multiplies per‑cell brightness (default 1)
+- `mode` 'default' | 'vu' – render animated frames or live VU columns
+- `levels` number[] 0..1 – VU values per column when `mode="vu"`
+- `onFrame(index)` – callback when frame index updates; called with 0 on mount
+- `accessibilityLabel` | `ariaLabel` – label for screen readers
+
+Types:
+
+- `type Frame = number[][] // [row][col] brightness 0..1`
+
+Performance:
+
+- Grid positions are precomputed and memoized
+- Only opacity is animated on the UI thread
+- VU mode derives a single frame from `levels`
+
+Accessibility:
+
+- Wrapped in a `View` with `accessibilityRole="image"` and `accessibilityLabel`
 
 ## Presets
 
@@ -62,7 +84,9 @@ export default function Demo() {
 
 ## Expo Example
 
-See `example/` for a minimal Expo app using the component. Make sure the example's `babel.config.js` includes the Reanimated plugin as the last entry.
+- See `example/` for a minimal Expo app with a preset selector.
+- Ensure `react-native-reanimated/plugin` is the last Babel plugin.
+- Works in Expo Go. For heavy animations, a custom dev client is recommended.
 
 ## Notes
 
