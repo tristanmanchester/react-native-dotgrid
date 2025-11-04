@@ -10,6 +10,7 @@ import Animated, {
   withTiming,
   runOnJS
 } from 'react-native-reanimated';
+import type { SharedValue } from 'react-native-reanimated';
 import Svg, { Circle } from 'react-native-svg';
 
 import {
@@ -24,13 +25,40 @@ import { clamp, createEmptyFrame, deriveVuLevelsFrame, normaliseFrames, getFrame
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-type Dot = {
+type LayoutDot = {
   key: string;
   cx: number;
   cy: number;
   r: number;
   row: number;
   col: number;
+};
+
+type DotProps = Omit<LayoutDot, 'key'> & {
+  framesSV: SharedValue<number[][][]>;
+  frameIndex: SharedValue<number>;
+  brightnessSV: SharedValue<number>;
+  fill: string;
+};
+
+const Dot: React.FC<DotProps> = ({ cx, cy, r, row, col, framesSV, frameIndex, brightnessSV, fill }) => {
+  const animatedProps = useAnimatedProps(() => {
+    'worklet';
+    try {
+      const idx = frameIndex.value;
+      const framesArr = framesSV.value;
+      const b = brightnessSV.value;
+      const frame = framesArr[Math.min(idx, framesArr.length - 1)] || framesArr[0];
+      const value = frame && frame[row] ? frame[row][col] ?? 0 : 0;
+      const op = value * b;
+      const clamped = op < 0 ? 0 : op > 1 ? 1 : op;
+      return { opacity: clamped } as any;
+    } catch (e) {
+      return { opacity: 0 } as any;
+    }
+  }, []);
+
+  return <AnimatedCircle cx={cx} cy={cy} r={r} fill={fill} animatedProps={animatedProps} opacity={0} />;
 };
 
 export const Matrix: React.FC<MatrixProps> = ({
@@ -126,8 +154,8 @@ export const Matrix: React.FC<MatrixProps> = ({
   );
 
   // Precompute dot layout positions
-  const dots: Dot[] = useMemo(() => {
-    const items: Dot[] = [];
+  const dots: LayoutDot[] = useMemo(() => {
+    const items: LayoutDot[] = [];
     for (let r = 0; r < rows; r += 1) {
       for (let c = 0; c < cols; c += 1) {
         const cx = c * (size + gap) + radius;
@@ -137,23 +165,6 @@ export const Matrix: React.FC<MatrixProps> = ({
     }
     return items;
   }, [rows, cols, size, gap, radius]);
-
-  const getAnimatedProps = (row: number, col: number) =>
-    useAnimatedProps(() => {
-      'worklet';
-      try {
-        const idx = frameIndex.value;
-        const framesArr = framesSV.value;
-        const b = brightnessSV.value;
-        const frame = framesArr[Math.min(idx, framesArr.length - 1)] || framesArr[0];
-        const value = (frame && frame[row] && frame[row][col]) ? frame[row][col] : 0;
-        const op = value * b;
-        const clamped = op < 0 ? 0 : op > 1 ? 1 : op;
-        return { opacity: clamped } as any;
-      } catch (e) {
-        return { opacity: 0 } as any;
-      }
-    }, []);
 
   const label = ariaLabel || accessibilityLabel || presetLabel || 'Dot matrix display';
 
@@ -179,20 +190,20 @@ export const Matrix: React.FC<MatrixProps> = ({
         {dots.map((d) => (
           <Circle key={`off-${d.key}`} cx={d.cx} cy={d.cy} r={d.r} fill={palette.off} />
         ))}
-        {dots.map((d) => {
-          const animatedProps = getAnimatedProps(d.row, d.col);
-          return (
-            <AnimatedCircle
-              key={`on-${d.key}`}
-              cx={d.cx}
-              cy={d.cy}
-              r={d.r}
-              fill={palette.on}
-              animatedProps={animatedProps}
-              opacity={0}
-            />
-          );
-        })}
+        {dots.map((d) => (
+          <Dot
+            key={`on-${d.key}`}
+            cx={d.cx}
+            cy={d.cy}
+            r={d.r}
+            row={d.row}
+            col={d.col}
+            framesSV={framesSV}
+            frameIndex={frameIndex}
+            brightnessSV={brightnessSV}
+            fill={palette.on}
+          />
+        ))}
       </Svg>
     </View>
   );

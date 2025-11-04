@@ -162,15 +162,23 @@ export function generatePulseFrames(rows: number, cols: number, count = 16): Fra
 }
 
 // Snake: single dot traverses the grid row by row (boustrophedon)
-export function generateSnakeFrames(rows: number, cols: number): Frame[] {
+export function generateSnakeFrames(rows: number, cols: number, tail = 6): Frame[] {
   const frames: Frame[] = [];
+  const path: Array<[number, number]> = [];
   for (let r = 0; r < rows; r += 1) {
     const range = r % 2 === 0 ? [...Array(cols).keys()] : [...Array(cols).keys()].reverse();
-    for (const c of range) {
-      const f = createEmptyFrame(rows, cols, 0);
-      f[r][c] = 1;
-      frames.push(normaliseFrame(f, rows, cols));
+    for (const c of range) path.push([r, c]);
+  }
+  for (let i = 0; i < path.length; i += 1) {
+    const f = createEmptyFrame(rows, cols, 0);
+    for (let t = 0; t < tail; t += 1) {
+      const idx = i - t;
+      if (idx < 0) break;
+      const [rr, cc] = path[idx];
+      const b = clamp(1 - t / tail);
+      f[rr][cc] = b;
     }
+    frames.push(normaliseFrame(f, rows, cols));
   }
   return frames;
 }
@@ -203,4 +211,4 @@ export function chevronRight(rows = 7, cols = 7): Frame {
 }
 
 export const pulse = (rows: number, cols: number, count?: number) => generatePulseFrames(rows, cols, count);
-export const snake = (rows: number, cols: number) => generateSnakeFrames(rows, cols);
+export const snake = (rows: number, cols: number, tail?: number) => generateSnakeFrames(rows, cols, tail);

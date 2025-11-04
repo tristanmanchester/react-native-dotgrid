@@ -61,25 +61,33 @@ describe('presets', () => {
     }
   });
 
-  test('snake frames visit each cell once', () => {
+  test('snake frames visit each cell once with tail', () => {
     const rows = 3;
     const cols = 4;
-    const frames = generateSnakeFrames(rows, cols);
+    const tail = 3;
+    const frames = generateSnakeFrames(rows, cols, tail);
     expect(frames.length).toBe(rows * cols);
     const seen = new Set<string>();
-    for (const f of frames) {
-      let count = 0;
-      let pos = '';
+    for (let i = 0; i < frames.length; i += 1) {
+      const f = frames[i];
+      let nonZero = 0;
+      let head = '';
+      let maxVal = -1;
       for (let r = 0; r < rows; r += 1) {
         for (let c = 0; c < cols; c += 1) {
-          if (f[r][c] > 0) {
-            count += 1;
-            pos = `${r}-${c}`;
+          const v = f[r][c];
+          if (v > 0) {
+            nonZero += 1;
+            if (v > maxVal) {
+              maxVal = v;
+              head = `${r}-${c}`;
+            }
           }
         }
       }
-      expect(count).toBe(1);
-      seen.add(pos);
+      expect(nonZero).toBeGreaterThanOrEqual(1);
+      expect(nonZero).toBeLessThanOrEqual(tail);
+      seen.add(head);
     }
     expect(seen.size).toBe(rows * cols);
   });
