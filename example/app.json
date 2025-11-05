@@ -4,11 +4,16 @@
     "slug": "dotgrid-example",
     "version": "1.0.0",
     "orientation": "portrait",
+    "platforms": ["ios", "android", "web"],
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
       "bundleIdentifier": "com.tmanchester.dotgrid-example"
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
     }
   }
 }

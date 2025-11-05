@@ -1,4 +1,18 @@
+const React = require('react');
+
 const sharedValue = (initial) => ({ value: initial });
+
+const createAnimatedComponent = (Component) => {
+  // If it's already a React component, return it
+  if (typeof Component === 'function') {
+    return Component;
+  }
+
+  // Otherwise, wrap it in a forwardRef component
+  return React.forwardRef((props, ref) => {
+    return React.createElement(Component, { ...props, ref });
+  });
+};
 
 const ReanimatedMock = {
   useSharedValue: sharedValue,
@@ -10,9 +24,16 @@ const ReanimatedMock = {
   withRepeat: (value) => value,
   cancelAnimation: () => {},
   runOnJS: (fn) => fn,
-  Easing: {},
+  Easing: {
+    linear: (x) => x,
+    ease: (x) => x,
+    quad: (x) => x,
+    cubic: (x) => x
+  },
   Extrapolation: {},
-  createAnimatedComponent: (Comp) => Comp
+  createAnimatedComponent
 };
+
+ReanimatedMock.default = ReanimatedMock;
 
 module.exports = ReanimatedMock;

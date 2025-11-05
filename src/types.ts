@@ -34,7 +34,7 @@ export interface MatrixProps extends ViewProps {
   gap?: number;
   /**
    * Dot diameter in logical pixels.
-   * @default 12
+   * @default 10
    */
   size?: number;
   /**
@@ -87,7 +87,7 @@ export interface MatrixProps extends ViewProps {
 }
 
 export const DEFAULT_FPS = 12;
-export const DEFAULT_SIZE = 12;
+export const DEFAULT_SIZE = 10;
 export const DEFAULT_GAP = 2;
 export const DEFAULT_BRIGHTNESS = 1;
 

@@ -12,10 +12,15 @@
   "dependencies": {
     "expo": "~54.0.22",
     "expo-asset": "^11.0.0",
-    "react": "19.1.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-native": "0.81.0",
     "react-native-dotgrid": "file:../react-native-dotgrid-0.1.0.tgz",
     "react-native-reanimated": "^4.0.0",
-    "react-native-svg": "^15.2.0"
+    "react-native-svg": "^15.2.0",
+    "react-native-web": "^0.19.13"
+  },
+  "devDependencies": {
+    "react-native-worklets": "^0.5.2"
   }
 }

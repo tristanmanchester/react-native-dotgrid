@@ -4,6 +4,9 @@ node_modules
 # Build outputs
 dist
 
+# Temporary files
+.tmp
+
 # Logs
 *.log
 

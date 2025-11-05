@@ -1,4 +1,10 @@
-const createComponent = (name) => name;
+const React = require('react');
+
+const createComponent = (name) => {
+  return React.forwardRef((props, ref) =>
+    React.createElement(name, { ...props, ref })
+  );
+};
 
 module.exports = new Proxy(
   {},

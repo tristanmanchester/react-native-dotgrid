@@ -247,3 +247,86 @@ export function generateRippleFrames(
 
 export const ripple = (rows: number, cols: number, options?: { length?: number; speed?: number; wavelength?: number; damping?: number }) =>
   generateRippleFrames(rows, cols, options);
+
+// Pre-generated constants for web API parity (template.md)
+// These provide drop-in compatibility with the web version
+
+/**
+ * Pre-generated wave animation frames (7×7, 24 frames).
+ * Smooth sine wave pattern at 20 fps.
+ */
+export const waveFrames: Frame[] = generateWaveFrames(7, 7, { length: 24 });
+
+/**
+ * Pre-generated loader animation frames (7×7, 12 frames).
+ * Perimeter spinner animation.
+ */
+export const loaderFrames: Frame[] = generateLoaderFrames(7, 7);
+
+/**
+ * Pre-generated pulse animation frames (7×7, 16 frames).
+ * Global brightness pulse effect.
+ */
+export const pulseFrames: Frame[] = generatePulseFrames(7, 7, 16);
+
+/**
+ * Pre-generated snake animation frames (7×7, 49 frames).
+ * Snake traversal pattern with fading tail.
+ */
+export const snakeFrames: Frame[] = generateSnakeFrames(7, 7);
+
+/**
+ * Pre-generated ripple animation frames (7×7, 24 frames).
+ * Concentric wave effect radiating from center.
+ */
+export const rippleFrames: Frame[] = generateRippleFrames(7, 7, { length: 24 });
+
+/**
+ * Static chevron pointing left (7×7).
+ * Useful for directional indicators.
+ */
+export const chevronLeftFrame: Frame = chevronLeft(7, 7);
+
+/**
+ * Static chevron pointing right (7×7).
+ * Useful for directional indicators.
+ */
+export const chevronRightFrame: Frame = chevronRight(7, 7);
+
+/**
+ * Create a VU meter frame from live audio levels.
+ * Helper function for creating static VU meter patterns.
+ * For real-time VU meters, use mode="vu" with levels prop instead.
+ *
+ * @param cols - Number of columns (one per level/band)
+ * @param levels - Array of levels (0-1) for each column
+ * @returns Frame with columns lit from bottom based on levels
+ *
+ * @example
+ * ```tsx
+ * import { Matrix, vu } from 'react-native-dotgrid'
+ *
+ * const levels = [0.3, 0.6, 0.9, 0.7, 0.5]
+ * <Matrix rows={7} cols={5} pattern={vu(5, levels)} />
+ * ```
+ */
+export function vu(cols: number, levels: number[]): Frame {
+  // Default to 7 rows as per template.md standard
+  const rows = 7;
+  const frame = createEmptyFrame(rows, cols);
+
+  if (!levels || levels.length === 0) {
+    return frame;
+  }
+
+  for (let c = 0; c < cols; c += 1) {
+    const level = clamp(levels[c] ?? 0);
+    const activeRows = Math.round(level * rows);
+    for (let r = 0; r < rows; r += 1) {
+      const rowFromBottom = rows - 1 - r;
+      // Light from bottom up with brightness proportional to level
+      frame[rowFromBottom][c] = rowFromBottom < activeRows ? clamp(0.5 + (level * 0.5)) : 0;
+    }
+  }
+  return normaliseFrame(frame, rows, cols);
+}
