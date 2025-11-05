@@ -1,0 +1,39 @@
+# Development and testing
+example/
+scripts/
+**/__tests__/
+test-utils/
+demos/
+.tmp/
+
+# Config files
+.eslintrc.js
+.prettierrc.js
+jest.config.js
+jest.setup.ts
+tsconfig.json
+tsconfig.build.*.json
+babel.config.js
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Other
+*.tgz
+PLAN.md
+template.md

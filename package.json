@@ -1,23 +1,30 @@
 {
   "name": "react-native-dotgrid",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Animated dot-matrix display component for React Native using SVG and Reanimated.",
   "keywords": [
     "react-native",
-    "svg",
+    "react-native-svg",
     "reanimated",
     "dot-matrix",
-    "expo"
+    "matrix",
+    "led",
+    "animation",
+    "visualization",
+    "vu-meter",
+    "expo",
+    "expo-go"
   ],
+  "author": "Tristan Manchester",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/example/react-native-dotgrid"
+    "url": "https://github.com/tristanmanchester/react-native-dotgrid"
   },
   "bugs": {
-    "url": "https://github.com/example/react-native-dotgrid/issues"
+    "url": "https://github.com/tristanmanchester/react-native-dotgrid/issues"
   },
-  "homepage": "https://github.com/example/react-native-dotgrid#readme",
+  "homepage": "https://github.com/tristanmanchester/react-native-dotgrid#readme",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
