@@ -14,13 +14,13 @@ Animated dot-matrix display component for React Native, inspired by [ElevenLabs 
 
 ## Features
 
-- 🎯 **Crisp SVG Rendering** - Sharp dots at any size using `react-native-svg`
-- ⚡ **UI Thread Animations** - Smooth 60fps animations via Reanimated
-- 🎵 **VU Meter Mode** - Real-time audio visualization support
-- 🎨 **Customizable** - Full control over colors, sizing, and timing
-- 📦 **Pre-built Presets** - Wave, loader, pulse, snake, ripple animations
-- 🌐 **Cross-Platform** - iOS, Android, and Web support
-- ♿ **Accessible** - Screen reader support with ARIA labels
+- **Crisp SVG Rendering** - Sharp dots at any size using `react-native-svg`
+- **UI Thread Animations** - Smooth 60fps animations via Reanimated
+- **VU Meter Mode** - Real-time audio visualization support
+- **Customizable** - Full control over colors, sizing, and timing
+- **Pre-built Presets** - Wave, loader, pulse, snake, ripple animations
+- **Cross-Platform** - iOS, Android, and Web support
+- **Accessible** - Screen reader support with ARIA labels
 
 ## Showcase
 
