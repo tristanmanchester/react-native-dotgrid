@@ -2,8 +2,8 @@
 
 <div align="center">
 
-![Wave Animation](demos/wave.gif)
-![Snake Animation](demos/snake.gif)
+![Wave Animation](https://raw.githubusercontent.com/tristanmanchester/react-native-dotgrid/main/demos/wave.gif)
+![Snake Animation](https://raw.githubusercontent.com/tristanmanchester/react-native-dotgrid/main/demos/snake.gif)
 
 Animated dot-matrix display component for React Native, inspired by [ElevenLabs UI Matrix](https://ui.elevenlabs.io/docs/components/matrix).
 
@@ -26,7 +26,7 @@ Animated dot-matrix display component for React Native, inspired by [ElevenLabs 
 
 <div align="center">
 
-![Showcase Grid](demos/showcase.gif)
+![Showcase Grid](https://raw.githubusercontent.com/tristanmanchester/react-native-dotgrid/main/demos/showcase.gif)
 
 *Multiple patterns and animations running simultaneously*
 
