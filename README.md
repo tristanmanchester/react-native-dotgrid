@@ -2,8 +2,8 @@
 
 <div align="center">
 
-![Wave Animation](demos/wave.webp)
-![Snake Animation](demos/snake.webp)
+![Wave Animation](demos/wave.gif)
+![Snake Animation](demos/snake.gif)
 
 Animated dot-matrix display component for React Native, inspired by [ElevenLabs UI Matrix](https://ui.elevenlabs.io/docs/components/matrix).
 
@@ -26,7 +26,7 @@ Animated dot-matrix display component for React Native, inspired by [ElevenLabs 
 
 <div align="center">
 
-![Showcase Grid](demos/showcase.webp)
+![Showcase Grid](demos/showcase.gif)
 
 *Multiple patterns and animations running simultaneously*
 
@@ -298,13 +298,13 @@ This library works on web via `react-native-web`. For Expo web:
 
 ## Demo Generation
 
-Generate the WebP animations seen in this README:
+Generate the GIF/WebP animations seen in this README:
 
 ```bash
 npm run generate:demos
 ```
 
-This creates optimized WebP animations in the `demos/` directory using the actual frame data from the presets.
+This creates optimized GIF and WebP animations in the `demos/` directory using the actual frame data from the presets. You can generate specific formats using `--gif` or `--webp` flags.
 
 ## Acknowledgments
 

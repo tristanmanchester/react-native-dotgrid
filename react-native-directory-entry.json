@@ -5,9 +5,9 @@
     "https://github.com/tristanmanchester/react-native-dotgrid/tree/main/example"
   ],
   "images": [
-    "https://raw.githubusercontent.com/tristanmanchester/react-native-dotgrid/main/demos/wave.webp",
-    "https://raw.githubusercontent.com/tristanmanchester/react-native-dotgrid/main/demos/snake.webp",
-    "https://raw.githubusercontent.com/tristanmanchester/react-native-dotgrid/main/demos/showcase.webp"
+    "https://raw.githubusercontent.com/tristanmanchester/react-native-dotgrid/main/demos/wave.gif",
+    "https://raw.githubusercontent.com/tristanmanchester/react-native-dotgrid/main/demos/snake.gif",
+    "https://raw.githubusercontent.com/tristanmanchester/react-native-dotgrid/main/demos/showcase.gif"
   ],
   "ios": true,
   "android": true,

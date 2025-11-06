@@ -270,6 +270,46 @@ function createAnimatedWebP(tempDir, outputPath, fps) {
 }
 
 /**
+ * Use ffmpeg to create animated GIF from PNG frames
+ */
+function createAnimatedGif(tempDir, outputPath, fps) {
+  return new Promise((resolve, reject) => {
+    const paddedLength = String(fs.readdirSync(tempDir).length).length;
+    const inputPattern = path.join(tempDir, `frame_%0${paddedLength}d.png`);
+
+    const args = [
+      '-framerate', String(fps),
+      '-i', inputPattern,
+      '-vf', 'split[s0][s1];[s0]palettegen=max_colors=256[p];[s1][p]paletteuse=dither=bayer:bayer_scale=5',
+      '-loop', '0',
+      '-y', // Overwrite output
+      outputPath
+    ];
+
+    console.log(`  Running: ffmpeg ${args.join(' ')}`);
+
+    const ffmpeg = spawn('ffmpeg', args);
+
+    ffmpeg.stderr.on('data', (data) => {
+      // Suppress ffmpeg output (it's verbose)
+      // console.log(data.toString());
+    });
+
+    ffmpeg.on('close', (code) => {
+      if (code === 0) {
+        const stats = fs.statSync(outputPath);
+        console.log(`  Created ${outputPath} (${(stats.size / 1024).toFixed(1)}KB)`);
+        resolve();
+      } else {
+        reject(new Error(`ffmpeg exited with code ${code}`));
+      }
+    });
+
+    ffmpeg.on('error', reject);
+  });
+}
+
+/**
  * Clean up temp directory
  */
 function cleanupTempDir(tempDir) {
@@ -281,11 +321,10 @@ function cleanupTempDir(tempDir) {
 /**
  * Generate a single demo animation
  */
-async function generateDemo(name, frames, fps, outputDir) {
+async function generateDemo(name, frames, fps, outputDir, formats = ['webp', 'gif']) {
   console.log(`\nGenerating ${name}...`);
 
   const tempDir = path.join(__dirname, '..', '.tmp', name);
-  const outputPath = path.join(outputDir, `${name}.webp`);
 
   try {
     // Render frames to canvas
@@ -295,13 +334,21 @@ async function generateDemo(name, frames, fps, outputDir) {
     // Save as PNGs
     await saveFramesAsPngs(canvases, tempDir);
 
-    // Create WebP
-    await createAnimatedWebP(tempDir, outputPath, fps);
+    // Create requested formats
+    if (formats.includes('webp')) {
+      const webpPath = path.join(outputDir, `${name}.webp`);
+      await createAnimatedWebP(tempDir, webpPath, fps);
+    }
+
+    if (formats.includes('gif')) {
+      const gifPath = path.join(outputDir, `${name}.gif`);
+      await createAnimatedGif(tempDir, gifPath, fps);
+    }
 
     // Cleanup
     cleanupTempDir(tempDir);
 
-    console.log(`  ✓ ${name}.webp complete`);
+    console.log(`  ✓ ${name} complete (${formats.join(', ')})`);
   } catch (error) {
     console.error(`  ✗ Failed to generate ${name}:`, error.message);
     cleanupTempDir(tempDir);
@@ -312,11 +359,10 @@ async function generateDemo(name, frames, fps, outputDir) {
 /**
  * Generate showcase demo (3x3 grid)
  */
-async function generateShowcaseDemo(outputDir) {
+async function generateShowcaseDemo(outputDir, formats = ['webp', 'gif']) {
   console.log(`\nGenerating showcase...`);
 
   const tempDir = path.join(__dirname, '..', '.tmp', 'showcase');
-  const outputPath = path.join(outputDir, 'showcase.webp');
   const fps = 20;
 
   try {
@@ -327,13 +373,21 @@ async function generateShowcaseDemo(outputDir) {
     // Save as PNGs
     await saveFramesAsPngs(frames, tempDir);
 
-    // Create WebP
-    await createAnimatedWebP(tempDir, outputPath, fps);
+    // Create requested formats
+    if (formats.includes('webp')) {
+      const webpPath = path.join(outputDir, 'showcase.webp');
+      await createAnimatedWebP(tempDir, webpPath, fps);
+    }
+
+    if (formats.includes('gif')) {
+      const gifPath = path.join(outputDir, 'showcase.gif');
+      await createAnimatedGif(tempDir, gifPath, fps);
+    }
 
     // Cleanup
     cleanupTempDir(tempDir);
 
-    console.log(`  ✓ showcase.webp complete`);
+    console.log(`  ✓ showcase complete (${formats.join(', ')})`);
   } catch (error) {
     console.error(`  ✗ Failed to generate showcase:`, error.message);
     cleanupTempDir(tempDir);
@@ -348,13 +402,20 @@ async function main() {
   const args = process.argv.slice(2);
   const target = args[0] || 'all';
 
+  // Parse format flags: --gif, --webp, or both (default)
+  const formats = [];
+  if (args.includes('--gif')) formats.push('gif');
+  if (args.includes('--webp')) formats.push('webp');
+  if (formats.length === 0) formats.push('webp', 'gif'); // Default to both
+
   const outputDir = path.join(__dirname, '..', 'demos');
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
 
-  console.log('react-native-dotgrid WebP Demo Generator');
-  console.log('========================================');
+  console.log('react-native-dotgrid Demo Generator');
+  console.log('====================================');
+  console.log(`Formats: ${formats.join(', ')}`);
 
   // Check for ffmpeg
   try {
@@ -372,16 +433,16 @@ async function main() {
   try {
     if (target === 'wave' || target === 'all') {
       const frames = generateWaveFrames(7, 7);
-      await generateDemo('wave', frames, 20, outputDir);
+      await generateDemo('wave', frames, 20, outputDir, formats);
     }
 
     if (target === 'snake' || target === 'all') {
       const frames = snake(7, 12);
-      await generateDemo('snake', frames, 20, outputDir);
+      await generateDemo('snake', frames, 20, outputDir, formats);
     }
 
     if (target === 'showcase' || target === 'all') {
-      await generateShowcaseDemo(outputDir);
+      await generateShowcaseDemo(outputDir, formats);
     }
 
     console.log('\n✓ All demos generated successfully!');
