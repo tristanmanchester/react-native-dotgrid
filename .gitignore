@@ -4,6 +4,9 @@ node_modules
 # Build outputs
 dist
 
+# Test coverage
+coverage
+
 # Temporary files
 .tmp
 
