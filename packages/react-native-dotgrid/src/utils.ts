@@ -1,11 +1,5 @@
+import { clamp as clampValue } from './math';
 import type { Frame, MatrixMode } from './types';
-
-export const clamp = (value: number, min = 0, max = 1): number => {
-  if (Number.isNaN(value)) {
-    return min;
-  }
-  return Math.min(max, Math.max(min, value));
-};
 
 export const createEmptyFrame = (rows: number, cols: number, fill = 0): Frame =>
   Array.from({ length: rows }, () => Array.from({ length: cols }, () => fill));
@@ -15,7 +9,7 @@ export const normaliseFrame = (frame: Frame, rows: number, cols: number): Frame 
   for (let r = 0; r < rows; r += 1) {
     const row = frame[r] ?? [];
     for (let c = 0; c < cols; c += 1) {
-      normalised[r][c] = clamp(row[c] ?? 0);
+      normalised[r][c] = clampValue(row[c] ?? 0);
     }
   }
   return normalised;
@@ -56,11 +50,11 @@ export const createVuFrame = (rows: number, cols: number, levels?: number[]): Fr
   }
 
   for (let c = 0; c < cols; c += 1) {
-    const level = clamp(levels[c] ?? 0);
+    const level = clampValue(levels[c] ?? 0);
     const activeRows = Math.round(level * rows);
     for (let r = 0; r < rows; r += 1) {
       const rowFromBottom = rows - 1 - r;
-      frame[rowFromBottom][c] = rowFromBottom < activeRows ? clamp(0.5 + (level * 0.5)) : 0;
+      frame[rowFromBottom][c] = r < activeRows ? clampValue(0.5 + (level * 0.5)) : 0;
     }
   }
   return frame;
@@ -69,11 +63,4 @@ export const createVuFrame = (rows: number, cols: number, levels?: number[]): Fr
 export const deriveVuLevelsFrame = (rows: number, cols: number, levels?: number[]): Frame =>
   createVuFrame(rows, cols, levels);
 
-export const getFrameDurationMs = (fps: number, frameCount: number): number => {
-  if (frameCount <= 1) {
-    return 0;
-  }
-  const safeFps = fps > 0 ? fps : 1;
-  const seconds = frameCount / safeFps;
-  return seconds * 1000;
-};
+export { clamp, getFrameDurationMs } from './math';

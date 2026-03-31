@@ -3,6 +3,9 @@
     "name": "Dotgrid Example",
     "slug": "dotgrid-example",
     "version": "1.0.0",
+    "experiments": {
+      "autolinkingModuleResolution": true
+    },
     "orientation": "portrait",
     "platforms": ["ios", "android", "web"],
     "assetBundlePatterns": [

@@ -325,7 +325,7 @@ export function vu(cols: number, levels: number[]): Frame {
     for (let r = 0; r < rows; r += 1) {
       const rowFromBottom = rows - 1 - r;
       // Light from bottom up with brightness proportional to level
-      frame[rowFromBottom][c] = rowFromBottom < activeRows ? clamp(0.5 + (level * 0.5)) : 0;
+      frame[rowFromBottom][c] = r < activeRows ? clamp(0.5 + (level * 0.5)) : 0;
     }
   }
   return normaliseFrame(frame, rows, cols);

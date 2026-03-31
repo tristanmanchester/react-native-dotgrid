@@ -70,32 +70,6 @@ For Expo projects, see [`example/babel.config.js`](example/babel.config.js) for 
 
 For web, Skia requires CanvasKit setup. Follow the official [React Native Skia web instructions](https://shopify.github.io/react-native-skia/docs/getting-started/web/).
 
-## Workspace Development
-
-This repo is now an npm workspace. Install and run everything from the workspace root:
-
-```bash
-npm install
-npm run typecheck
-npm test
-npm run build
-```
-
-Run the Expo example app from the root with:
-
-```bash
-npm run example:web
-npm run example:ios
-```
-
-Before publishing, run the packed-artifact smoke test from the root:
-
-```bash
-npm run smoke:pack
-```
-
-That flow builds the library, packs it, installs the tarball into a clean temporary Expo app, runs `expo-doctor`, verifies iOS prebuild, and exports the web bundle. It is the release check that best matches how npm consumers will actually install the package.
-
 ## Quick Start
 
 ```tsx
@@ -347,7 +321,7 @@ This library works on web via `react-native-web`. The default Skia renderer requ
 Generate the GIF/WebP animations seen in this README:
 
 ```bash
-npm run generate:demos -w react-native-dotgrid
+npm run generate:demos
 ```
 
 This creates optimized GIF and WebP animations in the `demos/` directory using the actual frame data from the presets. You can generate specific formats using `--gif` or `--webp` flags.
@@ -358,7 +332,7 @@ This library is inspired by the [Matrix component from ElevenLabs UI](https://ui
 
 ## Contributing
 
-Contributions are welcome. Use the workspace-root commands above so the library package and Expo example share one dependency graph during development.
+Contributions are welcome. In this repository, install dependencies from the workspace root so the package and Expo example share one dependency graph during development.
 
 ## License
 

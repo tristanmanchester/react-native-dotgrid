@@ -1,3 +1,5 @@
+const React = require('react');
+
 const select = (options) => {
   if (options == null) {
     return undefined;
@@ -17,9 +19,17 @@ const select = (options) => {
   return undefined;
 };
 
+const createComponent = (tagName) =>
+  React.forwardRef(({ accessible, accessibilityRole, accessibilityLabel, ...props }, ref) =>
+    React.createElement(tagName, { ...props, ref }, props.children)
+  );
+
 module.exports = {
-  View: 'View',
-  Text: 'Text',
+  View: createComponent('div'),
+  Text: createComponent('span'),
+  ScrollView: createComponent('div'),
+  SafeAreaView: createComponent('div'),
+  Pressable: createComponent('button'),
   Platform: {
     OS: 'test',
     select

@@ -1,4 +1,5 @@
-import { clamp, createEmptyFrame, getFrameDurationMs } from '../utils';
+import { getFrameDurationMs } from '../math';
+import { clamp, createEmptyFrame } from '../utils';
 
 describe('utils', () => {
   test('clamp enforces bounds', () => {
@@ -19,4 +20,3 @@ describe('utils', () => {
     expect(getFrameDurationMs(12, 1)).toBe(0);
   });
 });
-

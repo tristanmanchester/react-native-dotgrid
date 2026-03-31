@@ -6,5 +6,6 @@
     "declarationMap": true,
     "outDir": "dist/types"
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["**/__tests__/**", "**/*.test.ts", "**/*.test.tsx"]
 }

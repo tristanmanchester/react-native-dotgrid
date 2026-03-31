@@ -4,6 +4,8 @@ export type Frame = number[][];
 
 export type MatrixMode = 'default' | 'vu';
 
+export type MatrixRenderer = 'skia' | 'svg';
+
 export interface Palette {
   on: string;
   off: string;
@@ -13,6 +15,11 @@ export interface Palette {
 export interface MatrixProps extends ViewProps {
   rows: number;
   cols: number;
+  /**
+   * Rendering backend. Defaults to the Skia renderer.
+   * Set to `svg` to force the fallback path.
+   */
+  renderer?: MatrixRenderer;
   /**
    * Static pattern to render when animation is not required.
    * Takes priority over `frames`.
@@ -90,6 +97,7 @@ export const DEFAULT_FPS = 12;
 export const DEFAULT_SIZE = 10;
 export const DEFAULT_GAP = 2;
 export const DEFAULT_BRIGHTNESS = 1;
+export const DEFAULT_RENDERER: MatrixRenderer = 'skia';
 
 export const DEFAULT_PALETTE: Palette = {
   on: '#12f45a',

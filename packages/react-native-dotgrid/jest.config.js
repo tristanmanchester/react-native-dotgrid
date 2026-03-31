@@ -16,8 +16,10 @@ module.exports = {
     }]
   },
   moduleNameMapper: {
+    '^@shopify/react-native-skia$': '<rootDir>/test-utils/skia-mock.js',
     '^react-native$': '<rootDir>/test-utils/react-native-mock.js',
     '^react-native-reanimated$': '<rootDir>/test-utils/reanimated-mock.js',
+    '^react-native-worklets$': '<rootDir>/test-utils/worklets-mock.js',
     '^react-native-svg$': '<rootDir>/test-utils/svg-mock.js'
   }
 };

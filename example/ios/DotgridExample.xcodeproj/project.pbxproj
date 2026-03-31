@@ -8,26 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		3CB51D43CB077641162B493C /* libPods-DotgridExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A694AB02E62E255EB1CED44E /* libPods-DotgridExample.a */; };
+		2D4BD2CE2D71B7CEF36415F9 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CD0C012FA44290E4505CEB /* ExpoModulesProvider.swift */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		3EEC94EF7E1CBA6ABE9E3B44 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE306F67EB02572C744405 /* ExpoModulesProvider.swift */; };
+		9A91F59E86E4216DDA10F951 /* libPods-DotgridExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4BCAD7012459E919745DE50 /* libPods-DotgridExample.a */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
-		F36F18F32C198F62CA868076 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E72B92986D767149CAA7D1D3 /* PrivacyInfo.xcprivacy */; };
+		FA3085D264495F6D49D88720 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 5EBBD50926A4724640321E08 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		13B07F961A680F5B00A75B9A /* DotgridExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DotgridExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = DotgridExample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = DotgridExample/Info.plist; sourceTree = "<group>"; };
-		85C4343A06A7B5076415CB63 /* Pods-DotgridExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DotgridExample.release.xcconfig"; path = "Target Support Files/Pods-DotgridExample/Pods-DotgridExample.release.xcconfig"; sourceTree = "<group>"; };
-		8ECE306F67EB02572C744405 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-DotgridExample/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		A694AB02E62E255EB1CED44E /* libPods-DotgridExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DotgridExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5EBBD50926A4724640321E08 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = DotgridExample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		64B1C50BBE6967D39D6024E3 /* Pods-DotgridExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DotgridExample.release.xcconfig"; path = "Target Support Files/Pods-DotgridExample/Pods-DotgridExample.release.xcconfig"; sourceTree = "<group>"; };
+		73CD0C012FA44290E4505CEB /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-DotgridExample/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = DotgridExample/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		CDE62034CE8F2D0C177B7741 /* Pods-DotgridExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DotgridExample.debug.xcconfig"; path = "Target Support Files/Pods-DotgridExample/Pods-DotgridExample.debug.xcconfig"; sourceTree = "<group>"; };
-		E72B92986D767149CAA7D1D3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = DotgridExample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		E4BCAD7012459E919745DE50 /* libPods-DotgridExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DotgridExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EE185497B3FD4E7BEDE28BE0 /* Pods-DotgridExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DotgridExample.debug.xcconfig"; path = "Target Support Files/Pods-DotgridExample/Pods-DotgridExample.debug.xcconfig"; sourceTree = "<group>"; };
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = DotgridExample/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* DotgridExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "DotgridExample-Bridging-Header.h"; path = "DotgridExample/DotgridExample-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -37,13 +37,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CB51D43CB077641162B493C /* libPods-DotgridExample.a in Frameworks */,
+				9A91F59E86E4216DDA10F951 /* libPods-DotgridExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01E7FEAA56738AE7372A01C6 /* DotgridExample */ = {
+			isa = PBXGroup;
+			children = (
+				73CD0C012FA44290E4505CEB /* ExpoModulesProvider.swift */,
+			);
+			name = DotgridExample;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* DotgridExample */ = {
 			isa = PBXGroup;
 			children = (
@@ -53,7 +61,7 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				E72B92986D767149CAA7D1D3 /* PrivacyInfo.xcprivacy */,
+				5EBBD50926A4724640321E08 /* PrivacyInfo.xcprivacy */,
 			);
 			name = DotgridExample;
 			sourceTree = "<group>";
@@ -62,17 +70,17 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				A694AB02E62E255EB1CED44E /* libPods-DotgridExample.a */,
+				E4BCAD7012459E919745DE50 /* libPods-DotgridExample.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		2F4467816FAB2F548C39A0D8 /* DotgridExample */ = {
+		6A2BFAF277747F4B1E941A31 /* ExpoModulesProviders */ = {
 			isa = PBXGroup;
 			children = (
-				8ECE306F67EB02572C744405 /* ExpoModulesProvider.swift */,
+				01E7FEAA56738AE7372A01C6 /* DotgridExample */,
 			);
-			name = DotgridExample;
+			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -89,8 +97,8 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				FB4CC869CCACC995530F2131 /* Pods */,
-				A412A130144532C98420B93E /* ExpoModulesProviders */,
+				8FB40BC07B52016BE49F4E41 /* Pods */,
+				6A2BFAF277747F4B1E941A31 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -105,12 +113,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A412A130144532C98420B93E /* ExpoModulesProviders */ = {
+		8FB40BC07B52016BE49F4E41 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				2F4467816FAB2F548C39A0D8 /* DotgridExample */,
+				EE185497B3FD4E7BEDE28BE0 /* Pods-DotgridExample.debug.xcconfig */,
+				64B1C50BBE6967D39D6024E3 /* Pods-DotgridExample.release.xcconfig */,
 			);
-			name = ExpoModulesProviders;
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
@@ -122,16 +132,6 @@
 			path = DotgridExample/Supporting;
 			sourceTree = "<group>";
 		};
-		FB4CC869CCACC995530F2131 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				CDE62034CE8F2D0C177B7741 /* Pods-DotgridExample.debug.xcconfig */,
-				85C4343A06A7B5076415CB63 /* Pods-DotgridExample.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -140,13 +140,13 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "DotgridExample" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				14F085732FEBDF8147C1C50E /* [Expo] Configure project */,
+				1EDCE28C7B1F1D3892F1966A /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				2049CEE254AC1C7BC9AB0A19 /* [CP] Embed Pods Frameworks */,
+				33C2159476A52CB5738EE784 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -166,7 +166,9 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = JW25DLAGT5;
 						LastSwiftMigration = 1250;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -196,7 +198,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				F36F18F32C198F62CA868076 /* PrivacyInfo.xcprivacy in Resources */,
+				FA3085D264495F6D49D88720 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,7 +244,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		14F085732FEBDF8147C1C50E /* [Expo] Configure project */ = {
+		1EDCE28C7B1F1D3892F1966A /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -266,7 +268,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-DotgridExample/expo-configure-project.sh\"\n";
 		};
-		2049CEE254AC1C7BC9AB0A19 /* [CP] Embed Pods Frameworks */ = {
+		33C2159476A52CB5738EE784 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -324,7 +326,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
-				3EEC94EF7E1CBA6ABE9E3B44 /* ExpoModulesProvider.swift in Sources */,
+				2D4BD2CE2D71B7CEF36415F9 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,12 +335,15 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CDE62034CE8F2D0C177B7741 /* Pods-DotgridExample.debug.xcconfig */;
+			baseConfigurationReference = EE185497B3FD4E7BEDE28BE0 /* Pods-DotgridExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DotgridExample/DotgridExample.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JW25DLAGT5;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -369,12 +374,15 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 85C4343A06A7B5076415CB63 /* Pods-DotgridExample.release.xcconfig */;
+			baseConfigurationReference = 64B1C50BBE6967D39D6024E3 /* Pods-DotgridExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DotgridExample/DotgridExample.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JW25DLAGT5;
 				INFOPLIST_FILE = DotgridExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -452,9 +460,10 @@
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_ENABLE_EXPLICIT_MODULES = NO;
 				USE_HERMES = true;
 			};
 			name = Debug;
@@ -506,8 +515,9 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_ENABLE_EXPLICIT_MODULES = NO;
 				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};

@@ -17,9 +17,10 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
+      "@shopify/react-native-skia": ["../../example/node_modules/@shopify/react-native-skia"],
       "react-native-dotgrid": ["src/index"]
     }
   },
-  "include": ["src", "example", "jest.setup.ts", "template.md", "PLAN.md"],
+  "include": ["src", "jest.setup.ts"],
   "exclude": ["dist", "node_modules"]
 }
