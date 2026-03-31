@@ -3,14 +3,15 @@
 ## 0.3.0
 
 ### Changed
-- Refactored the package into a workspace layout with the published library under `packages/react-native-dotgrid` and the Expo app under `example`.
-- Switched the default Skia renderer to a worklet-safe `Picture` backend with a memoized static background and UI-thread-driven active foreground rendering.
+- Rebuilt the library as a Skia-first renderer instead of the previous SVG + Reanimated-only implementation.
+- Added an optional SVG fallback path rather than making SVG the primary rendering backend.
+- Refactored the repo into a workspace layout with the published library under `packages/react-native-dotgrid` and the Expo app under `example`.
 - Split animation state management from renderer drawing so Skia and SVG share the same packed-frame and shared-value pipeline.
 - Tightened npm packaging so the ESM build is explicitly marked as ESM, tests are excluded from published type declarations, and the tarball only ships built artifacts and docs.
 
 ### Fixed
-- Fixed the native iOS startup crash caused by calling non-worklet helpers from UI-thread rendering paths.
-- Removed worklet-unsafe helper usage from both Skia and SVG renderers.
+- Fixed the native iOS startup crash caused by calling non-worklet helpers from UI-thread rendering paths in the new Skia implementation.
+- Removed worklet-unsafe helper usage from both the Skia path and the SVG fallback.
 - Stopped publishing test declaration files and raw source files in the npm package.
 
 ### Added
