@@ -1,16 +1,12 @@
 # react-native-dotgrid
 
-<div align="center">
-
 ![Wave Animation](https://raw.githubusercontent.com/tristanmanchester/react-native-dotgrid/main/demos/wave.gif)
 ![Snake Animation](https://raw.githubusercontent.com/tristanmanchester/react-native-dotgrid/main/demos/snake.gif)
 
 Animated dot-matrix display component for React Native, inspired by [ElevenLabs UI Matrix](https://ui.elevenlabs.io/docs/components/matrix). The default renderer is now a native-first Skia path with a memoized background and worklet-safe `Picture` foreground, plus an explicit lazy SVG fallback when you need parity or regression comparison.
 
 [![npm version](https://img.shields.io/npm/v/react-native-dotgrid.svg?style=flat)](https://www.npmjs.com/package/react-native-dotgrid)
-[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-
-</div>
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/tristanmanchester/react-native-dotgrid/blob/main/packages/react-native-dotgrid/LICENSE)
 
 ## Features
 
@@ -25,13 +21,9 @@ Animated dot-matrix display component for React Native, inspired by [ElevenLabs 
 
 ## Showcase
 
-<div align="center">
-
 ![Showcase Grid](https://raw.githubusercontent.com/tristanmanchester/react-native-dotgrid/main/demos/showcase.gif)
 
-*Multiple patterns and animations running simultaneously*
-
-</div>
+Multiple patterns and animations running simultaneously.
 
 ## Installation
 
@@ -224,7 +216,7 @@ Customize colors, sizing, and spacing:
 ### Matrix Component Props
 
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ---- | ---- | ------- | ----------- |
 | **rows** | `number` | *required* | Number of rows in the grid |
 | **cols** | `number` | *required* | Number of columns in the grid |
 | **renderer** | `'skia' \| 'svg'` | `'skia'` | Rendering backend |
@@ -233,13 +225,13 @@ Customize colors, sizing, and spacing:
 | **fps** | `number` | `12` | Animation frames per second |
 | **autoplay** | `boolean` | `true` | Start animation on mount |
 | **loop** | `boolean` | `true` | Loop animation continuously |
-| **paused** | `boolean` | `false` | Pause/resume animation |
+| **paused** | `boolean` | `false` | Pause or resume animation |
 | **size** | `number` | `10` | Dot diameter in pixels |
 | **gap** | `number` | `2` | Space between dots in pixels |
 | **palette** | `Palette` | See below | Color configuration |
-| **brightness** | `number` | `1` | Global brightness (0-1) |
+| **brightness** | `number` | `1` | Global brightness from 0 to 1 |
 | **mode** | `'default' \| 'vu'` | `'default'` | Rendering mode |
-| **levels** | `number[]` | - | VU meter levels (0-1) per column |
+| **levels** | `number[]` | - | VU meter levels from 0 to 1 per column |
 | **onFrame** | `(index: number) => void` | - | Frame change callback |
 | **accessibilityLabel** | `string` | - | Screen reader label |
 
@@ -340,6 +332,4 @@ MIT © Tristan Manchester
 
 ---
 
-<div align="center">
-Made with ❤️ for the React Native community
-</div>
+Made with love for the React Native community.

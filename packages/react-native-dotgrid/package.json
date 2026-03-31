@@ -1,6 +1,6 @@
 {
   "name": "react-native-dotgrid",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Animated dot-matrix display component for React Native using Skia, Reanimated, and an optional SVG fallback.",
   "keywords": [
     "react-native",

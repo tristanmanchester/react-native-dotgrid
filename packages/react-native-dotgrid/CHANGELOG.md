@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1
+
+### Fixed
+- Simplified the published package README to plain markdown so npm can render it reliably on the package page.
+
 ## 0.3.0
 
 ### Changed
