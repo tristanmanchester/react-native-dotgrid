@@ -1,5 +1,6 @@
 import {
   clampForRender,
+  clampFrameIndex,
   computeDotOpacity,
   getPackedFrameAt,
   getPackedFrameValue,
@@ -19,6 +20,17 @@ describe('workletUtils', () => {
     expect(resolveFrameIndex(1, 3)).toBe(1);
     expect(resolveFrameIndex(99, 3)).toBe(2);
     expect(resolveFrameIndex(0, 0)).toBe(0);
+  });
+
+  test('clampFrameIndex freezes on the last frame when progress reaches frameCount', () => {
+    expect(clampFrameIndex(5, 5)).toBe(4);
+    expect(clampFrameIndex(5.9, 5)).toBe(4);
+  });
+
+  test('clampFrameIndex clamps invalid progress safely', () => {
+    expect(clampFrameIndex(-1, 3)).toBe(0);
+    expect(clampFrameIndex(99, 3)).toBe(2);
+    expect(clampFrameIndex(Number.NaN, 3)).toBe(0);
   });
 
   test('getPackedFrameAt returns the nearest valid frame', () => {

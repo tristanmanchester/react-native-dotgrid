@@ -13,6 +13,7 @@ import { scheduleOnRN } from 'react-native-worklets';
 
 import { getFrameDurationMs } from './math';
 import type { MatrixMode } from './types';
+import { clampFrameIndex } from './workletUtils';
 
 type UseMatrixAnimationDriverOptions = {
   autoplay: boolean;
@@ -71,12 +72,7 @@ export const useMatrixAnimationDriver = ({
   }, [autoplay, duration, frameCount, loop, mode, paused, progress]);
 
   const frameIndex = useDerivedValue(() => {
-    if (frameCount <= 1) {
-      return 0;
-    }
-
-    const index = Math.floor(progress.value) % frameCount;
-    return index < 0 ? 0 : index;
+    return clampFrameIndex(progress.value, frameCount);
   }, [frameCount]);
 
   useAnimatedReaction(

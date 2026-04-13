@@ -28,7 +28,7 @@ export const clampFrameIndex = (
     return 0;
   }
 
-  const index = Math.floor(progress) % frameCount;
+  const index = Math.floor(progress);
 
   if (index < 0) {
     return 0;
