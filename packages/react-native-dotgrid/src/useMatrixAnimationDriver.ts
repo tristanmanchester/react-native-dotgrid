@@ -38,12 +38,17 @@ export const useMatrixAnimationDriver = ({
   const duration = useMemo(() => getFrameDurationMs(fps, frameCount), [fps, frameCount]);
   const onFrameRef = useRef(onFrame);
   const lastReportedFrameRef = useRef<number | null>(null);
+  const generationRef = useRef(0);
 
   useEffect(() => {
     onFrameRef.current = onFrame;
   }, [onFrame]);
 
-  const reportFrame = useCallback((index: number) => {
+  const reportFrame = useCallback((index: number, generation: number) => {
+    if (generation !== generationRef.current) {
+      return;
+    }
+
     if (!onFrameRef.current || lastReportedFrameRef.current === index) {
       return;
     }
@@ -79,15 +84,16 @@ export const useMatrixAnimationDriver = ({
     () => frameIndex.value,
     (index, previous) => {
       if (onFrameRef.current && index !== previous) {
-        scheduleOnRN(reportFrame, index);
+        scheduleOnRN(reportFrame, index, generationRef.current);
       }
     },
     [reportFrame]
   );
 
   useEffect(() => {
+    generationRef.current += 1;
     lastReportedFrameRef.current = null;
-    reportFrame(0);
+    reportFrame(0, generationRef.current);
   }, [autoplay, frameCount, mode, paused, reportFrame]);
 
   return {
