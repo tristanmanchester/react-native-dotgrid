@@ -52,7 +52,7 @@ export const Matrix: React.FC<MatrixProps> = ({
   useEffect(() => {
     // Announce for screen readers on initial mount
     AccessibilityInfo.announceForAccessibility?.(label);
-  }, [label]);
+  }, []);
 
   const rendererProps = {
     rows: safeRows,

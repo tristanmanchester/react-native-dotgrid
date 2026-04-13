@@ -1,11 +1,16 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import { AccessibilityInfo } from 'react-native';
 
 import { Matrix } from '../Matrix';
 import * as presets from '../presets';
 import * as types from '../types';
 
 describe('Matrix Component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe('Exports', () => {
     test('Matrix component is exported', () => {
       expect(Matrix).toBeDefined();
@@ -42,6 +47,31 @@ describe('Matrix Component', () => {
       expect(() =>
         render(<Matrix rows={2} cols={Infinity} pattern={[[1, 0], [0, 1]]} />)
       ).not.toThrow();
+    });
+  });
+
+  describe('Accessibility announcements', () => {
+    test('announces once on initial mount', () => {
+      const announceSpy = jest.spyOn(AccessibilityInfo, 'announceForAccessibility');
+
+      render(<Matrix rows={2} cols={2} ariaLabel="Playing" pattern={[[1, 0], [0, 1]]} />);
+
+      expect(announceSpy).toHaveBeenCalledTimes(1);
+      expect(announceSpy).toHaveBeenCalledWith('Playing');
+    });
+
+    test('does not re-announce when the ariaLabel changes after mount', () => {
+      const announceSpy = jest.spyOn(AccessibilityInfo, 'announceForAccessibility');
+      const { rerender } = render(
+        <Matrix rows={2} cols={2} ariaLabel="Playing" pattern={[[1, 0], [0, 1]]} />
+      );
+
+      expect(announceSpy).toHaveBeenCalledTimes(1);
+
+      rerender(<Matrix rows={2} cols={2} ariaLabel="Paused" pattern={[[1, 0], [0, 1]]} />);
+      rerender(<Matrix rows={2} cols={2} ariaLabel="Stopped" pattern={[[1, 0], [0, 1]]} />);
+
+      expect(announceSpy).toHaveBeenCalledTimes(1);
     });
   });
 
