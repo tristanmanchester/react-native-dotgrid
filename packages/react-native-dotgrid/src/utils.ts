@@ -53,8 +53,7 @@ export const createVuFrame = (rows: number, cols: number, levels?: number[]): Fr
     const level = clampValue(levels[c] ?? 0);
     const activeRows = Math.round(level * rows);
     for (let r = 0; r < rows; r += 1) {
-      const rowFromBottom = rows - 1 - r;
-      frame[rowFromBottom][c] = r < activeRows ? clampValue(0.5 + (level * 0.5)) : 0;
+      frame[r][c] = r >= rows - activeRows ? clampValue(0.5 + (level * 0.5)) : 0;
     }
   }
   return frame;

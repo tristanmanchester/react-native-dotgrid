@@ -1,5 +1,5 @@
 import type { Frame } from './types';
-import { clamp, createEmptyFrame, normaliseFrame } from './utils';
+import { clamp, createEmptyFrame, createVuFrame, normaliseFrame } from './utils';
 
 export const empty = (rows: number, cols: number): Frame => createEmptyFrame(rows, cols, 0);
 
@@ -312,21 +312,5 @@ export const chevronRightFrame: Frame = chevronRight(7, 7);
  */
 export function vu(cols: number, levels: number[]): Frame {
   // Default to 7 rows as per template.md standard
-  const rows = 7;
-  const frame = createEmptyFrame(rows, cols);
-
-  if (!levels || levels.length === 0) {
-    return frame;
-  }
-
-  for (let c = 0; c < cols; c += 1) {
-    const level = clamp(levels[c] ?? 0);
-    const activeRows = Math.round(level * rows);
-    for (let r = 0; r < rows; r += 1) {
-      const rowFromBottom = rows - 1 - r;
-      // Light from bottom up with brightness proportional to level
-      frame[rowFromBottom][c] = r < activeRows ? clamp(0.5 + (level * 0.5)) : 0;
-    }
-  }
-  return normaliseFrame(frame, rows, cols);
+  return createVuFrame(7, cols, levels);
 }

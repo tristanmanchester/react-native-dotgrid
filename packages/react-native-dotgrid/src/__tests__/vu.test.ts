@@ -1,14 +1,29 @@
+import { vu } from '../presets';
 import { createVuFrame, normaliseFrames } from '../utils';
 
 describe('vu mode and frames', () => {
-  test('createVuFrame lights from bottom', () => {
-    const f = createVuFrame(5, 3, [0, 0.6, 1]);
-    // Rightmost column fully on
-    expect(f.map((r) => r[2]).reduce((a, b) => a + b, 0)).toBeGreaterThan(0);
-    // Middle column partially on
-    const midCol = f.map((r) => r[1]).filter((v) => v > 0).length;
-    expect(midCol).toBeGreaterThan(0);
-    expect(midCol).toBeLessThan(5);
+  test('createVuFrame lights bottom rows instead of top rows', () => {
+    const frame = createVuFrame(7, 1, [0.5]);
+
+    expect(frame[0][0]).toBe(0);
+    expect(frame[1][0]).toBe(0);
+    expect(frame[2][0]).toBe(0);
+    expect(frame[3][0]).toBeGreaterThan(0);
+    expect(frame[4][0]).toBeGreaterThan(0);
+    expect(frame[5][0]).toBeGreaterThan(0);
+    expect(frame[6][0]).toBeGreaterThan(0);
+  });
+
+  test('vu preset uses the same bottom-up fill logic', () => {
+    const frame = vu(1, [0.5]);
+
+    expect(frame[0][0]).toBe(0);
+    expect(frame[1][0]).toBe(0);
+    expect(frame[2][0]).toBe(0);
+    expect(frame[3][0]).toBeGreaterThan(0);
+    expect(frame[4][0]).toBeGreaterThan(0);
+    expect(frame[5][0]).toBeGreaterThan(0);
+    expect(frame[6][0]).toBeGreaterThan(0);
   });
 
   test('normaliseFrames prefers pattern over frames in default mode', () => {
@@ -45,4 +60,3 @@ describe('vu mode and frames', () => {
     expect(lit).toBeGreaterThan(0);
   });
 });
-
