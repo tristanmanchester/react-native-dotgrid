@@ -34,6 +34,15 @@ describe('Matrix Component', () => {
         )
       ).not.toThrow();
     });
+
+    test('Matrix degrades safely when rows or cols are non-finite', () => {
+      expect(() =>
+        render(<Matrix rows={Infinity} cols={2} pattern={[[1, 0], [0, 1]]} />)
+      ).not.toThrow();
+      expect(() =>
+        render(<Matrix rows={2} cols={Infinity} pattern={[[1, 0], [0, 1]]} />)
+      ).not.toThrow();
+    });
   });
 
   describe('Type Exports', () => {

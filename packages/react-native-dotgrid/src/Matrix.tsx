@@ -11,7 +11,7 @@ import {
   MatrixProps
 } from './types';
 import { compileFrames } from './frameCompiler';
-import { createDotLayout } from './layout';
+import { createDotLayout, getMatrixAxisSize, normaliseGridDimension } from './layout';
 import { SkiaMatrixRenderer } from './renderers/SkiaMatrixRenderer';
 
 export const Matrix: React.FC<MatrixProps> = ({
@@ -37,12 +37,14 @@ export const Matrix: React.FC<MatrixProps> = ({
   style,
   ...rest
 }) => {
-  const width = cols * size + (cols - 1) * gap;
-  const height = rows * size + (rows - 1) * gap;
-  const dots = useMemo(() => createDotLayout(rows, cols, size, gap), [rows, cols, size, gap]);
+  const safeRows = normaliseGridDimension(rows);
+  const safeCols = normaliseGridDimension(cols);
+  const width = getMatrixAxisSize(safeCols, size, gap);
+  const height = getMatrixAxisSize(safeRows, size, gap);
+  const dots = useMemo(() => createDotLayout(safeRows, safeCols, size, gap), [safeRows, safeCols, size, gap]);
   const compiled = useMemo(
-    () => compileFrames({ pattern, frames, rows, cols, mode, levels }),
-    [pattern, frames, rows, cols, mode, levels]
+    () => compileFrames({ pattern, frames, rows: safeRows, cols: safeCols, mode, levels }),
+    [pattern, frames, safeRows, safeCols, mode, levels]
   );
 
   const label = ariaLabel || accessibilityLabel || presetLabel || 'Dot matrix display';
@@ -53,8 +55,8 @@ export const Matrix: React.FC<MatrixProps> = ({
   }, [label]);
 
   const rendererProps = {
-    rows,
-    cols,
+    rows: safeRows,
+    cols: safeCols,
     width,
     height,
     size,
