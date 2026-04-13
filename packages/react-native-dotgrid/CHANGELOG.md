@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.3.2
+
+### Fixed
+- Fixed non-looping animations so they freeze on the final frame instead of wrapping back to frame `0`.
+- Corrected VU meter rendering so columns fill bottom-up consistently in both the runtime generator and the `vu()` preset helper.
+- Fixed invalid hex palette parsing so malformed colors fall back to the default active tint instead of producing `NaN` channels in the Skia renderer.
+- Hardened matrix dimension handling so non-finite `rows` or `cols` degrade safely instead of hanging layout generation.
+- Ignored stale `onFrame` callbacks that were queued before an animation pause/reset.
+- Limited `announceForAccessibility` to initial mount to avoid repeated screen-reader announcements on dynamic label changes.
+- Corrected malformed digit glyph presets for `0`, `1`, `3`, `6`, and `9`.
+- Normalized the `normaliseFrames` fallback path so it respects requested `rows` and `cols` like the other code paths.
+
 ## 0.3.1
 
 ### Fixed
