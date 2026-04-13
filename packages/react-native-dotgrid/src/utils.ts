@@ -40,7 +40,7 @@ export const normaliseFrames = (
     return frames.map((frame) => normaliseFrame(frame, rows, cols));
   }
 
-  return [fallbackFrame];
+  return [normaliseFrame(fallbackFrame, rows, cols)];
 };
 
 export const createVuFrame = (rows: number, cols: number, levels?: number[]): Frame => {
