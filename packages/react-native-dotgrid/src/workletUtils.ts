@@ -1,12 +1,6 @@
-import type { PackedFrame } from './frameCompiler';
+import type { PackedFrame, RgbChannels } from './internalTypes';
 
-export type RgbChannels = {
-  r: number;
-  g: number;
-  b: number;
-};
-
-export const clampValue = (value: number, min = 0, max = 1): number => {
+const clampValue = (value: number, min = 0, max = 1): number => {
   'worklet';
 
   if (Number.isNaN(value)) {
@@ -100,15 +94,4 @@ export const rgbaFromChannels = (
   'worklet';
 
   return `rgba(${color.r}, ${color.g}, ${color.b}, ${clampValue(alpha)})`;
-};
-
-export const toRgbaString = (
-  red: number,
-  green: number,
-  blue: number,
-  alpha: number
-): string => {
-  'worklet';
-
-  return `rgba(${red}, ${green}, ${blue}, ${clampValue(alpha)})`;
 };

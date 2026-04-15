@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
-
 import {
   Easing,
   cancelAnimation,
@@ -11,19 +10,9 @@ import {
 } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
 
+import type { MatrixAnimationDriverOptions } from './internalTypes';
 import { getFrameDurationMs } from './math';
-import type { MatrixMode } from './types';
 import { clampFrameIndex } from './workletUtils';
-
-type UseMatrixAnimationDriverOptions = {
-  autoplay: boolean;
-  fps: number;
-  frameCount: number;
-  loop: boolean;
-  mode: MatrixMode;
-  onFrame?: (index: number) => void;
-  paused?: boolean;
-};
 
 export const useMatrixAnimationDriver = ({
   autoplay,
@@ -33,7 +22,7 @@ export const useMatrixAnimationDriver = ({
   mode,
   onFrame,
   paused
-}: UseMatrixAnimationDriverOptions) => {
+}: MatrixAnimationDriverOptions) => {
   const progress = useSharedValue(0);
   const duration = useMemo(() => getFrameDurationMs(fps, frameCount), [fps, frameCount]);
   const onFrameRef = useRef(onFrame);

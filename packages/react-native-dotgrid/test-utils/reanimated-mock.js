@@ -3,12 +3,10 @@ const React = require('react');
 const sharedValue = (initial) => ({ value: initial });
 
 const createAnimatedComponent = (Component) => {
-  // If it's already a React component, return it
   if (typeof Component === 'function') {
     return Component;
   }
 
-  // Otherwise, wrap it in a forwardRef component
   return React.forwardRef((props, ref) => {
     return React.createElement(Component, { ...props, ref });
   });

@@ -55,7 +55,6 @@ describe('vu mode and frames', () => {
       [[0]]
     );
     expect(result).toHaveLength(1);
-    // first column should have some lights on
     const lit = result[0].map((r) => r[0]).filter((v) => v > 0).length;
     expect(lit).toBeGreaterThan(0);
   });

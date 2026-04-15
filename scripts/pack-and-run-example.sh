@@ -8,7 +8,7 @@ PACKAGE_DIR="$ROOT_DIR/packages/react-native-dotgrid"
 EXAMPLE_DIR="$ROOT_DIR/example"
 
 echo "Cleaning previous tarballs..."
-rm -f "$PACKAGE_DIR"/react-native-dotgrid-*.tgz || true
+rm -f "$PACKAGE_DIR"/react-native-dotgrid-*.tgz
 
 echo "Building workspace package..."
 cd "$ROOT_DIR"

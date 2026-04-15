@@ -1,17 +1,11 @@
-import React from 'react';
 import { render } from '@testing-library/react';
+import React from 'react';
 
 import { useMatrixAnimationDriver } from '../useMatrixAnimationDriver';
 
-const DriverProbe: React.FC<{
-  autoplay: boolean;
-  fps: number;
-  frameCount: number;
-  loop: boolean;
-  mode: 'default' | 'vu';
-  onFrame?: (index: number) => void;
-  paused?: boolean;
-}> = (props) => {
+type DriverProbeProps = Parameters<typeof useMatrixAnimationDriver>[0];
+
+const DriverProbe: React.FC<DriverProbeProps> = (props) => {
   useMatrixAnimationDriver(props);
   return null;
 };

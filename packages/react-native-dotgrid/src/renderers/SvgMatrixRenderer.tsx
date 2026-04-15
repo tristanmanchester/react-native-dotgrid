@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Animated, { useAnimatedProps } from 'react-native-reanimated';
 import Svg, { Circle } from 'react-native-svg';
 
@@ -8,6 +7,7 @@ import {
   getPackedFrameAt,
   getPackedFrameValue
 } from '../workletUtils';
+
 import type { AnimatedFrameState, RendererCommonProps } from './types';
 import { useRendererFrameState } from './useRendererFrameState';
 

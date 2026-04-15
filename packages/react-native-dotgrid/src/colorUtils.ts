@@ -1,4 +1,4 @@
-import type { RgbChannels } from './workletUtils';
+import type { RgbChannels } from './internalTypes';
 
 const DEFAULT_ACTIVE_TINT: RgbChannels = {
   r: 18,

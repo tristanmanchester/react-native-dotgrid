@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-
 import { useSharedValue } from 'react-native-reanimated';
 
 import { useMatrixAnimationDriver } from '../useMatrixAnimationDriver';
-import type { AnimatedFrameState, RendererCommonProps } from './types';
 import { clampForRender } from '../workletUtils';
+
+import type { AnimatedFrameState, RendererCommonProps } from './types';
 
 export const useRendererFrameState = (props: RendererCommonProps): AnimatedFrameState => {
   const { frames, brightness } = props;

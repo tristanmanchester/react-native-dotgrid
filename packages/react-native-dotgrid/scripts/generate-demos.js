@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * Generate WebP animations from preset frame data
- * Usage: node scripts/generate-demos.js [wave|snake|showcase|all]
+ * Generate demo animations from preset frame data.
+ * Usage: node scripts/generate-demos.js [wave|snake|showcase|all] [--gif] [--webp]
  */
 
 const fs = require('fs');
@@ -135,54 +135,28 @@ function generateShowcaseFrames(maxFrames = 120) {
   const gap = 2;
   const gridGap = 6;
 
-  // Generate all cell animations
   const cellAnimations = [];
-
-  // Cell 0: soft gradient (static)
   cellAnimations[0] = [softPattern(7, 7, [[2, 2], [4, 4]], 1.8)];
-
-  // Cell 1: wave
   cellAnimations[1] = generateWaveFrames(7, 7);
-
-  // Cell 2: corner gradient (static)
   cellAnimations[2] = [softPattern(7, 7, [[0, 6]], 2.2)];
-
-  // Cell 3: edge gradient (static)
   cellAnimations[3] = [softPattern(7, 7, [[3, 0]], 1.6)];
-
-  // Cell 4: pulse
   cellAnimations[4] = pulse(7, 7, 18);
-
-  // Cell 5: ripple
   cellAnimations[5] = ripple(7, 7, { length: 42, wavelength: 3.5, speed: 6 });
-
-  // Cell 6: snake
   cellAnimations[6] = snake(7, 7, 4);
-
-  // Cell 7: loader
   cellAnimations[7] = generateLoaderFrames(7, 7);
-
-  // Cell 8: multi-center gradient (static)
   cellAnimations[8] = [softPattern(7, 7, [[5, 5], [1, 3], [3, 1]], 2)];
-
-  // Calculate canvas dimensions
   const cellWidth = matrixSize * dotSize + (matrixSize - 1) * gap;
   const cellHeight = cellWidth;
   const totalWidth = gridSize * cellWidth + (gridSize - 1) * gridGap;
   const totalHeight = totalWidth;
-
-  // Generate composite frames
   const compositeFrames = [];
 
   for (let frameIdx = 0; frameIdx < maxFrames; frameIdx++) {
     const canvas = createCanvas(totalWidth, totalHeight);
     const ctx = canvas.getContext('2d');
 
-    // Fill background (use black if transparent)
     ctx.fillStyle = DEFAULT_PALETTE.background === 'transparent' ? '#000' : DEFAULT_PALETTE.background;
     ctx.fillRect(0, 0, totalWidth, totalHeight);
-
-    // Render each cell
     for (let row = 0; row < gridSize; row++) {
       for (let col = 0; col < gridSize; col++) {
         const cellIdx = row * gridSize + col;
@@ -251,8 +225,7 @@ function createAnimatedWebP(tempDir, outputPath, fps) {
     const ffmpeg = spawn('ffmpeg', args);
 
     ffmpeg.stderr.on('data', (data) => {
-      // Suppress ffmpeg output (it's verbose)
-      // console.log(data.toString());
+      void data;
     });
 
     ffmpeg.on('close', (code) => {
@@ -291,8 +264,7 @@ function createAnimatedGif(tempDir, outputPath, fps) {
     const ffmpeg = spawn('ffmpeg', args);
 
     ffmpeg.stderr.on('data', (data) => {
-      // Suppress ffmpeg output (it's verbose)
-      // console.log(data.toString());
+      void data;
     });
 
     ffmpeg.on('close', (code) => {
@@ -318,6 +290,23 @@ function cleanupTempDir(tempDir) {
   }
 }
 
+function parseCliArgs(args) {
+  const positionalArgs = args.filter((arg) => !arg.startsWith('--'));
+  const flags = new Set(args.filter((arg) => arg.startsWith('--')));
+  const target = positionalArgs[0] || 'all';
+  const formats = [];
+
+  if (flags.has('--gif')) formats.push('gif');
+  if (flags.has('--webp')) formats.push('webp');
+  if (formats.length === 0) formats.push('webp', 'gif');
+
+  return { target, formats };
+}
+
+function resolveOutputDir(baseDir = __dirname) {
+  return path.join(baseDir, '..', '..', '..', 'demos');
+}
+
 /**
  * Generate a single demo animation
  */
@@ -327,14 +316,9 @@ async function generateDemo(name, frames, fps, outputDir, formats = ['webp', 'gi
   const tempDir = path.join(__dirname, '..', '.tmp', name);
 
   try {
-    // Render frames to canvas
     console.log(`  Rendering ${frames.length} frames...`);
     const canvases = frames.map(frame => renderFrame(frame));
-
-    // Save as PNGs
     await saveFramesAsPngs(canvases, tempDir);
-
-    // Create requested formats
     if (formats.includes('webp')) {
       const webpPath = path.join(outputDir, `${name}.webp`);
       await createAnimatedWebP(tempDir, webpPath, fps);
@@ -344,8 +328,6 @@ async function generateDemo(name, frames, fps, outputDir, formats = ['webp', 'gi
       const gifPath = path.join(outputDir, `${name}.gif`);
       await createAnimatedGif(tempDir, gifPath, fps);
     }
-
-    // Cleanup
     cleanupTempDir(tempDir);
 
     console.log(`  ✓ ${name} complete (${formats.join(', ')})`);
@@ -366,14 +348,9 @@ async function generateShowcaseDemo(outputDir, formats = ['webp', 'gif']) {
   const fps = 20;
 
   try {
-    // Generate composite frames
     console.log(`  Generating 3x3 grid frames...`);
-    const frames = generateShowcaseFrames(120); // 6 seconds at 20fps
-
-    // Save as PNGs
+    const frames = generateShowcaseFrames(120);
     await saveFramesAsPngs(frames, tempDir);
-
-    // Create requested formats
     if (formats.includes('webp')) {
       const webpPath = path.join(outputDir, 'showcase.webp');
       await createAnimatedWebP(tempDir, webpPath, fps);
@@ -383,8 +360,6 @@ async function generateShowcaseDemo(outputDir, formats = ['webp', 'gif']) {
       const gifPath = path.join(outputDir, 'showcase.gif');
       await createAnimatedGif(tempDir, gifPath, fps);
     }
-
-    // Cleanup
     cleanupTempDir(tempDir);
 
     console.log(`  ✓ showcase complete (${formats.join(', ')})`);
@@ -399,16 +374,9 @@ async function generateShowcaseDemo(outputDir, formats = ['webp', 'gif']) {
  * Main execution
  */
 async function main() {
-  const args = process.argv.slice(2);
-  const target = args[0] || 'all';
+  const { target, formats } = parseCliArgs(process.argv.slice(2));
 
-  // Parse format flags: --gif, --webp, or both (default)
-  const formats = [];
-  if (args.includes('--gif')) formats.push('gif');
-  if (args.includes('--webp')) formats.push('webp');
-  if (formats.length === 0) formats.push('webp', 'gif'); // Default to both
-
-  const outputDir = path.join(__dirname, '..', 'demos');
+  const outputDir = resolveOutputDir();
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
@@ -417,7 +385,6 @@ async function main() {
   console.log('====================================');
   console.log(`Formats: ${formats.join(', ')}`);
 
-  // Check for ffmpeg
   try {
     const ffmpeg = spawn('ffmpeg', ['-version']);
     await new Promise((resolve, reject) => {
@@ -453,9 +420,11 @@ async function main() {
   }
 }
 
-// Run if called directly
 if (require.main === module) {
-  main().catch(console.error);
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
 }
 
-module.exports = { renderFrame, generateShowcaseFrames };
+module.exports = { parseCliArgs, renderFrame, generateShowcaseFrames, resolveOutputDir };

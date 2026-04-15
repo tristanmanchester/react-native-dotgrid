@@ -5,7 +5,7 @@ import {
   getPackedFrameAt,
   getPackedFrameValue,
   resolveFrameIndex,
-  toRgbaString
+  rgbaFromChannels
 } from '../workletUtils';
 
 describe('workletUtils', () => {
@@ -52,8 +52,8 @@ describe('workletUtils', () => {
     expect(computeDotOpacity(0.5, -1)).toBe(0);
   });
 
-  test('toRgbaString produces a clamped rgba color', () => {
-    expect(toRgbaString(18, 244, 90, 2)).toBe('rgba(18, 244, 90, 1)');
-    expect(toRgbaString(18, 244, 90, -1)).toBe('rgba(18, 244, 90, 0)');
+  test('rgbaFromChannels produces a clamped rgba color', () => {
+    expect(rgbaFromChannels({ r: 18, g: 244, b: 90 }, 2)).toBe('rgba(18, 244, 90, 1)');
+    expect(rgbaFromChannels({ r: 18, g: 244, b: 90 }, -1)).toBe('rgba(18, 244, 90, 0)');
   });
 });

@@ -1,23 +1,29 @@
+import {
+  Canvas,
+  Picture,
+  Skia,
+  createPicture,
+  type SkCanvas,
+  type SkPaint
+} from '@shopify/react-native-skia';
 import React, { useMemo } from 'react';
-
-import { Canvas, Picture, Skia, createPicture } from '@shopify/react-native-skia';
 import { useDerivedValue } from 'react-native-reanimated';
 
 import { parseColorChannels } from '../colorUtils';
-import type { PackedFrame } from '../frameCompiler';
+import type { PackedFrame, RgbChannels } from '../internalTypes';
 import {
   computeDotOpacity,
   getPackedFrameAt,
   getPackedFrameValue,
-  rgbaFromChannels,
-  type RgbChannels
+  rgbaFromChannels
 } from '../workletUtils';
+
 import type { RendererCommonProps } from './types';
 import { useRendererFrameState } from './useRendererFrameState';
 
 const drawPackedFrame = (
-  canvas: any,
-  paint: any,
+  canvas: SkCanvas,
+  paint: SkPaint,
   dots: RendererCommonProps['dots'],
   frame: PackedFrame,
   brightness: number,

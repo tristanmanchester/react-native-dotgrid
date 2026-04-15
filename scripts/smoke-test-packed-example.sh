@@ -15,7 +15,7 @@ trap cleanup EXIT
 echo "Packing workspace package..."
 cd "$ROOT_DIR"
 npm run build -w react-native-dotgrid >/dev/null
-rm -f "$ROOT_DIR"/react-native-dotgrid-*.tgz || true
+rm -f "$ROOT_DIR"/react-native-dotgrid-*.tgz
 TARBALL="$(npm pack --ignore-scripts --silent "$PACKAGE_DIR")"
 TARBALL_PATH="$ROOT_DIR/$TARBALL"
 echo "Packed: $TARBALL_PATH"

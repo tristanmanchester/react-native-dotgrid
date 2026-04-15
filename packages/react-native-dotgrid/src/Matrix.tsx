@@ -1,6 +1,9 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { View, AccessibilityInfo } from 'react-native';
 
+import { compileFrames } from './frameCompiler';
+import { createDotLayout, getMatrixAxisSize, normaliseGridDimension } from './layout';
+import { SkiaMatrixRenderer } from './renderers/SkiaMatrixRenderer';
 import {
   DEFAULT_BRIGHTNESS,
   DEFAULT_FPS,
@@ -10,9 +13,6 @@ import {
   DEFAULT_SIZE,
   MatrixProps
 } from './types';
-import { compileFrames } from './frameCompiler';
-import { createDotLayout, getMatrixAxisSize, normaliseGridDimension } from './layout';
-import { SkiaMatrixRenderer } from './renderers/SkiaMatrixRenderer';
 
 export const Matrix: React.FC<MatrixProps> = ({
   rows,
@@ -48,10 +48,10 @@ export const Matrix: React.FC<MatrixProps> = ({
   );
 
   const label = ariaLabel || accessibilityLabel || presetLabel || 'Dot matrix display';
+  const initialLabelRef = useRef(label);
 
   useEffect(() => {
-    // Announce for screen readers on initial mount
-    AccessibilityInfo.announceForAccessibility?.(label);
+    AccessibilityInfo.announceForAccessibility?.(initialLabelRef.current);
   }, []);
 
   const rendererProps = {
@@ -95,5 +95,3 @@ export const Matrix: React.FC<MatrixProps> = ({
     </View>
   );
 };
-
-export default Matrix;

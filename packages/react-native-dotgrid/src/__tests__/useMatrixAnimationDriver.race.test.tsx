@@ -1,20 +1,23 @@
-import React from 'react';
 import { render } from '@testing-library/react';
+import React from 'react';
 
-const scheduledCallbacks: Array<{ fn: (...args: unknown[]) => void; args: unknown[] }> = [];
+import { useMatrixAnimationDriver } from '../useMatrixAnimationDriver';
+
+type DriverProbeProps = Parameters<typeof useMatrixAnimationDriver>[0];
+type ReportFrame = (index: number, generation: number) => void;
+
+const scheduledCallbacks: Array<{ fn: ReportFrame; args: Parameters<ReportFrame> }> = [];
 let animatedReactionCallback:
   | ((index: number, previous: number | null) => void)
   | null = null;
 
 jest.mock('react-native-worklets', () => ({
-  scheduleOnRN: (fn: (...args: unknown[]) => void, ...args: unknown[]) => {
+  scheduleOnRN: (fn: ReportFrame, ...args: Parameters<ReportFrame>) => {
     scheduledCallbacks.push({ fn, args });
   }
 }));
 
 jest.mock('react-native-reanimated', () => {
-  const React = require('react');
-
   const sharedValue = (initial: number) => ({ value: initial });
 
   return {
@@ -36,21 +39,11 @@ jest.mock('react-native-reanimated', () => {
     },
     useAnimatedStyle: (updater: () => unknown) => ({ __mocked: true, updater }),
     useAnimatedProps: (updater: () => unknown) => updater(),
-    createAnimatedComponent: (Component: React.ComponentType<any>) => Component
+    createAnimatedComponent: <P,>(Component: React.ComponentType<P>) => Component
   };
 });
 
-import { useMatrixAnimationDriver } from '../useMatrixAnimationDriver';
-
-const DriverProbe: React.FC<{
-  autoplay: boolean;
-  fps: number;
-  frameCount: number;
-  loop: boolean;
-  mode: 'default' | 'vu';
-  onFrame?: (index: number) => void;
-  paused?: boolean;
-}> = (props) => {
+const DriverProbe: React.FC<DriverProbeProps> = (props) => {
   useMatrixAnimationDriver(props);
   return null;
 };

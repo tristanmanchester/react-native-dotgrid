@@ -1,10 +1,10 @@
 import type { SharedValue } from 'react-native-reanimated';
 
-import type { PackedFrame } from '../frameCompiler';
+import type { MatrixAnimationDriverOptions, PackedFrame } from '../internalTypes';
 import type { LayoutDot } from '../layout';
-import type { MatrixMode, Palette } from '../types';
+import type { Palette } from '../types';
 
-export type RendererCommonProps = {
+type RendererLayoutProps = {
   rows: number;
   cols: number;
   width: number;
@@ -14,16 +14,13 @@ export type RendererCommonProps = {
   dots: LayoutDot[];
   palette: Palette;
   brightness: number;
-  fps: number;
-  autoplay: boolean;
-  loop: boolean;
-  paused?: boolean;
-  mode: MatrixMode;
-  onFrame?: (index: number) => void;
-  frameCount: number;
+};
+
+export type RendererCommonProps = RendererLayoutProps &
+  MatrixAnimationDriverOptions & {
   isStatic: boolean;
   frames: PackedFrame[];
-};
+  };
 
 export type AnimatedFrameState = {
   framesSV: SharedValue<PackedFrame[]>;
