@@ -59,4 +59,66 @@ describe('useMatrixAnimationDriver', () => {
     expect(onFrame).toHaveBeenNthCalledWith(1, 0);
     expect(onFrame).toHaveBeenNthCalledWith(2, 0);
   });
+
+  test('re-reports frame zero when fps changes', () => {
+    const onFrame = jest.fn();
+    const { rerender } = render(
+      <DriverProbe
+        autoplay
+        fps={12}
+        frameCount={3}
+        loop
+        mode="default"
+        onFrame={onFrame}
+        paused={false}
+      />
+    );
+
+    rerender(
+      <DriverProbe
+        autoplay
+        fps={24}
+        frameCount={3}
+        loop
+        mode="default"
+        onFrame={onFrame}
+        paused={false}
+      />
+    );
+
+    expect(onFrame).toHaveBeenCalledTimes(2);
+    expect(onFrame).toHaveBeenNthCalledWith(1, 0);
+    expect(onFrame).toHaveBeenNthCalledWith(2, 0);
+  });
+
+  test('re-reports frame zero when loop changes', () => {
+    const onFrame = jest.fn();
+    const { rerender } = render(
+      <DriverProbe
+        autoplay
+        fps={12}
+        frameCount={3}
+        loop
+        mode="default"
+        onFrame={onFrame}
+        paused={false}
+      />
+    );
+
+    rerender(
+      <DriverProbe
+        autoplay
+        fps={12}
+        frameCount={3}
+        loop={false}
+        mode="default"
+        onFrame={onFrame}
+        paused={false}
+      />
+    );
+
+    expect(onFrame).toHaveBeenCalledTimes(2);
+    expect(onFrame).toHaveBeenNthCalledWith(1, 0);
+    expect(onFrame).toHaveBeenNthCalledWith(2, 0);
+  });
 });

@@ -48,6 +48,52 @@ const DriverProbe: React.FC<DriverProbeProps> = (props) => {
   return null;
 };
 
+const expectStaleQueuedFrameCallbackIgnoredAfterReset = (
+  resetProps: Partial<DriverProbeProps>
+) => {
+  const onFrame = jest.fn();
+  const { rerender } = render(
+    <DriverProbe
+      autoplay
+      fps={12}
+      frameCount={3}
+      loop
+      mode="default"
+      onFrame={onFrame}
+      paused={false}
+    />
+  );
+
+  expect(onFrame).toHaveBeenCalledTimes(1);
+  expect(onFrame).toHaveBeenLastCalledWith(0);
+  onFrame.mockClear();
+
+  animatedReactionCallback?.(2, 1);
+  expect(scheduledCallbacks).toHaveLength(1);
+
+  rerender(
+    <DriverProbe
+      autoplay
+      fps={12}
+      frameCount={3}
+      loop
+      mode="default"
+      onFrame={onFrame}
+      paused={false}
+      {...resetProps}
+    />
+  );
+
+  expect(onFrame).toHaveBeenCalledTimes(1);
+  expect(onFrame).toHaveBeenLastCalledWith(0);
+  onFrame.mockClear();
+
+  const staleCallback = scheduledCallbacks.shift();
+  staleCallback?.fn(...(staleCallback?.args ?? []));
+
+  expect(onFrame).not.toHaveBeenCalled();
+};
+
 describe('useMatrixAnimationDriver race handling', () => {
   beforeEach(() => {
     scheduledCallbacks.length = 0;
@@ -55,45 +101,14 @@ describe('useMatrixAnimationDriver race handling', () => {
   });
 
   test('ignores a stale queued frame callback after reset', () => {
-    const onFrame = jest.fn();
-    const { rerender } = render(
-      <DriverProbe
-        autoplay
-        fps={12}
-        frameCount={3}
-        loop
-        mode="default"
-        onFrame={onFrame}
-        paused={false}
-      />
-    );
+    expectStaleQueuedFrameCallbackIgnoredAfterReset({ paused: true });
+  });
 
-    expect(onFrame).toHaveBeenCalledTimes(1);
-    expect(onFrame).toHaveBeenLastCalledWith(0);
-    onFrame.mockClear();
+  test('ignores a stale queued frame callback after fps changes', () => {
+    expectStaleQueuedFrameCallbackIgnoredAfterReset({ fps: 24 });
+  });
 
-    animatedReactionCallback?.(2, 1);
-    expect(scheduledCallbacks).toHaveLength(1);
-
-    rerender(
-      <DriverProbe
-        autoplay
-        fps={12}
-        frameCount={3}
-        loop
-        mode="default"
-        onFrame={onFrame}
-        paused
-      />
-    );
-
-    expect(onFrame).toHaveBeenCalledTimes(1);
-    expect(onFrame).toHaveBeenLastCalledWith(0);
-    onFrame.mockClear();
-
-    const staleCallback = scheduledCallbacks.shift();
-    staleCallback?.fn(...(staleCallback?.args ?? []));
-
-    expect(onFrame).not.toHaveBeenCalled();
+  test('ignores a stale queued frame callback after loop changes', () => {
+    expectStaleQueuedFrameCallbackIgnoredAfterReset({ loop: false });
   });
 });

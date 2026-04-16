@@ -83,7 +83,7 @@ export const useMatrixAnimationDriver = ({
     generationRef.current += 1;
     lastReportedFrameRef.current = null;
     reportFrame(0, generationRef.current);
-  }, [autoplay, frameCount, mode, paused, reportFrame]);
+  }, [autoplay, duration, frameCount, loop, mode, paused, reportFrame]);
 
   return {
     frameIndex
